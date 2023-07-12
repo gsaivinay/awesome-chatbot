@@ -2,6 +2,7 @@ import { MutableRefObject, useCallback, useEffect, useRef } from "react";
 
 import { useChatResponseStatus, useGenerationSettings, usePlugin } from "@/Store/ChatSettings";
 import { useConversationStore } from "@/Store/ChatStore";
+import { useApiKey } from "@/Store/GlobalStore";
 import {
     ChatResponseStatus,
     ConversationStore,
@@ -10,6 +11,7 @@ import {
     type UseChatOptions,
 } from "@/types/chatMessageType";
 import { GenerationSettings, PluginType } from "@/types/generationSettings";
+import { ApiKeyType } from "@/types/globalTypes";
 import { createChunkDecoder, nanoid } from "@/utils/streams/utils";
 export type { UseChatOptions };
 
@@ -53,6 +55,7 @@ export function useChatCustom({
     );
     const [inProgress] = useChatResponseStatus((state: ChatResponseStatus) => [state.inProgress]);
     const settings = useGenerationSettings((state: GenerationSettings) => state);
+    const [apiKey] = useApiKey((state: ApiKeyType) => [state.apiKey]);
     const plugin = usePlugin((state: PluginType) => state);
 
     // Generate an unique id for the chat if not provided.
@@ -112,6 +115,7 @@ export function useChatCustom({
                               })),
                         ...extraMetadataRef.current.body,
                         ...settings,
+                        apiKey,
                         plugin: {
                             ...plugin,
                         },
@@ -230,7 +234,7 @@ export function useChatCustom({
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [getConversation, abortControllerRef, settings]
+        [getConversation, abortControllerRef, settings, apiKey]
     );
 
     const append = async (message: Message) => {

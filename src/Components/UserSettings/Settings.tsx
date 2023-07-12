@@ -1,16 +1,17 @@
 import { Group, Modal, PasswordInput, Select } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { PropsWithChildren } from "react";
+import { ChangeEvent, PropsWithChildren } from "react";
 import { TbSettings, TbX } from "react-icons/tb";
 
-import { useCustomTheme } from "@/Store/GlobalStore";
-import { CustomThemeType } from "@/types/globalTypes";
+import { useApiKey, useCustomTheme } from "@/Store/GlobalStore";
+import { ApiKeyType, CustomThemeType } from "@/types/globalTypes";
 
 export const SettingsModal: React.FC<PropsWithChildren> = () => {
     const [currentTheme, setCurrentTheme] = useCustomTheme((state: CustomThemeType) => [
         state.currentTheme,
         state.setCurrentTheme,
     ]);
+    const [apiKey, setApiKey] = useApiKey((state: ApiKeyType) => [state.apiKey, state.setApiKey]);
 
     const [opened, { open, close }] = useDisclosure(false);
 
@@ -22,6 +23,10 @@ export const SettingsModal: React.FC<PropsWithChildren> = () => {
         icon: `fill-primary`,
         root: `grid-container `,
     };
+
+    function setKeyHandler(event: ChangeEvent<HTMLInputElement>): void {
+        setApiKey(event.target.value);
+    }
 
     return (
         <>
@@ -49,7 +54,7 @@ export const SettingsModal: React.FC<PropsWithChildren> = () => {
                             <TbX size="1rem" />
                         </button>
                     </div>
-                    <div className={`flex-grow flex flex-col gap-2 bg-gray-100 p-5 theme-${currentTheme}`}>
+                    <div className={`flex flex-grow flex-col gap-2 bg-gray-100 p-5 theme-${currentTheme}`}>
                         <Select
                             label="Theme:"
                             data={[
@@ -72,6 +77,8 @@ export const SettingsModal: React.FC<PropsWithChildren> = () => {
                         <PasswordInput
                             label="API Key:"
                             placeholder="API Key"
+                            value={apiKey}
+                            onChange={setKeyHandler}
                             classNames={SelectInputClasses}
                         />
                     </div>

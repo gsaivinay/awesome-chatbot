@@ -3,10 +3,9 @@
 import { HfInference } from "@huggingface/inference";
 
 import { PluginType } from "@/types/generationSettings";
-
+import { HuggingFaceStream } from "@/utils/streams/huggingface-stream";
+import { StreamingTextResponse } from "@/utils/streams/streaming-text-response";
 // import { HuggingFaceStream, StreamingTextResponse } from "ai";
-import { HuggingFaceStream } from "../../utils/streams/huggingface-stream";
-import { StreamingTextResponse } from "../../utils/streams/streaming-text-response";
 
 // Create a new HuggingFace Inference instance
 const Hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
@@ -50,7 +49,7 @@ function buildPompt(
     messages: { content: string; role: "system" | "user" | "assistant" }[],
     continueGeneration: boolean
 ): string {
-    console.log("building prompt...", continueGeneration);
+    // console.log("building prompt...", continueGeneration);
     const prompt =
         `${systemToken}\n${systemPrompt}\n${endToken}\n` +
         messages
@@ -113,10 +112,11 @@ export default async function POST(req: Request) {
 
     const plugin: PluginType = reqBody.plugin;
     const continueGeneration: boolean = reqBody.continueGeneration || false;
+    const apiKey: string | undefined = reqBody.apiKey || undefined;
     let prompt: string;
 
     if (plugin.id !== undefined && plugin.id !== null && plugin.id !== "") {
-        console.log("plugin id is: " + plugin.id);
+        // console.log("plugin id is: " + plugin.id);
         prompt = await buildPluginPompt(reqBody.messages);
     } else {
         prompt = buildPompt(reqBody.messages, continueGeneration);
@@ -148,6 +148,7 @@ export default async function POST(req: Request) {
             // stop: [`${inputToken}`, `\n${inputToken}`, endToken, "###", ],
             stop: ["<|endoftext|>", "<|user|>", "<|end|>"],
             details: true,
+            use_cache: false,
         },
         // parameters: {
         //     max_new_tokens: 512,
@@ -165,9 +166,14 @@ export default async function POST(req: Request) {
         // },
     };
 
-    console.log(payload);
+    // console.log(payload);
 
-    const response = await Hf.textGenerationStream(payload);
+    let hfClient = Hf;
+    if(apiKey) {
+        hfClient = new HfInference(apiKey);
+    }
+
+    const response = await hfClient.textGenerationStream(payload);
 
     // Convert the response into a friendly text-stream
     const stream = HuggingFaceStream(response);

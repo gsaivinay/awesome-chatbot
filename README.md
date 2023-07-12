@@ -57,6 +57,7 @@ pnpm build:analyze
 ## In Progress
 - [ ] Responsive design for mobile and small screens
 - [ ] Clear all conversation at once
+- [ ] Connect to self hosted LLMs
 - [ ] File upload and chat with file data
 - [ ] User login and authentication
 - [ ] Save chat history in database

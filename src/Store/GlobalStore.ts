@@ -1,14 +1,15 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { CustomThemeType, SideBarState } from "../types/globalTypes";
+import { ApiKeyType, CustomThemeType, SideBarState } from "../types/globalTypes";
 
 const useSideBarState = create<SideBarState>()(
     persist(
         (set) => ({
             leftSidebarOpen: true,
             rightSidebarOpen: true,
-            toggleLeftSidebar: () => set((state: { leftSidebarOpen: boolean }) => ({ leftSidebarOpen: !state.leftSidebarOpen })),
+            toggleLeftSidebar: () =>
+                set((state: { leftSidebarOpen: boolean }) => ({ leftSidebarOpen: !state.leftSidebarOpen })),
             toggleRightSidebar: () =>
                 set((state: { rightSidebarOpen: boolean }) => ({ rightSidebarOpen: !state.rightSidebarOpen })),
         }),
@@ -25,7 +26,7 @@ const useCustomTheme = create<CustomThemeType>()(
     persist(
         (set) => ({
             currentTheme: "goldsand",
-            setCurrentTheme: (currentTheme: string) => set(() => ({currentTheme})),
+            setCurrentTheme: (currentTheme: string) => set(() => ({ currentTheme })),
         }),
         {
             storage: createJSONStorage(() => localStorage),
@@ -34,4 +35,9 @@ const useCustomTheme = create<CustomThemeType>()(
     )
 );
 
-export { useCustomTheme };
+const useApiKey = create<ApiKeyType>()((set) => ({
+    apiKey: undefined,
+    setApiKey: (apiKey: string) => set(() => ({ apiKey })),
+}));
+
+export { useApiKey, useCustomTheme };
