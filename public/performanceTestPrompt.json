@@ -1,0 +1,25 @@
+{
+    "state": {
+        "conversationMap": {
+            "4f4c9114-a693-4b89-9cf2-7b391c1b7495": {
+                "id": "4f4c9114-a693-4b89-9cf2-7b391c1b7495",
+                "title": "Python program to create a backend API u...",
+                "conversation": [
+                    {
+                        "role": "user",
+                        "content": "Python program to create a backend API using FastAPI, that should connect to postgres database, provide functionalities to authenticate users, register new users and generate auth tokens on successful logins using username and passwords.",
+                        "id": "B2hlgOd"
+                    },
+                    {
+                        "id": "B3x6wWJ",
+                        "createdAt": "2023-07-06T13:37:01.015Z",
+                        "content": "Here is a basic example of a Python program that creates a backend API using FastAPI, connects to a PostgreSQL database, provides functionalities for authentication, registering new users, and generating authentication tokens on successful logins:\n\n``` \nfrom fastapi import FastAPI, Depends, HTTPException, status\nfrom fastapi.security import OAuth2PasswordRequestForm\nfrom passlib.context import CryptContext\nfrom jose import jwt\nimport os\nimport psycopg2\n\n# Connect to the PostgreSQL database\nDATABASE_URL = os.getenv(\"DATABASE_URL\")\n\nasync def get_db():\n    db = await psycopg2.connect(DATABASE_URL, sslmode=\"require\")\n    return db\n\n# Define the application\napp = FastAPI()\n\n# Define the authentication function\npwd_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\n\n@app.post(\"/token\", response_model=OAuth2PasswordRequestForm)\nasync def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):\n    # Check if the user exists\n    conn = await get_db()\n    cursor = conn.cursor()\n\n    sql = \"\"\"SELECT * FROM users WHERE username = %s\"\"\"\n    values = (form_data.username,)\n    cursor.execute(sql, values)\n    user = cursor.fetchone()\n\n    if not user:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Incorrect username or password\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n\n    # Check if the password is correct\n    if not pwd_context.verify(form_data.password, user[\"password\"]):\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Incorrect username or password\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n\n    # Generate an access token\n    access_token_expires = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    access_token = jwt.encode(\n        {\"sub\": user[\"username\"], \"exp\": access_token_expires},\n        os.getenv(\"SECRET_KEY\"),\n        algorithm=\"HS256\",\n    )\n\n    # Return the access token\n    return {\"access_token\": access_token, \"token_type\": \"bearer\"}\n\n@app.post(\"/users\", response_model=User)\nasync def create_user(user: UserCreate, db: Session = Depends(get_db)):\n    # Check if the user already exists\n    cursor = db.execute(\"SELECT * FROM users WHERE username =?\", (user.username,))\n    if cursor.fetchone():\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=\"Username already exists\")\n\n    # Hash the password\n    hashed_password = pwd_context.hash(user.password)\n\n    # Insert the user into the database\n    db.execute(\n        \"INSERT INTO users (username, password) VALUES (%s, %s)\",\n        (user.username, hashed_password)\n    )\n    db.commit()\n\n    # Return the user\n    return user\n\n# Define the user model\nclass User:\n    username: str\n    password: str\n\nclass UserCreate(User):\n    pass\n\n# Set the secret key for encoding the access token\nACCESS_TOKEN_EXPIRE_MINUTES = 30\nSECRET_KEY = os.getenv(\"SECRET_KEY\")\n\nif __name__ == \"__main__\":\n    import uvicorn\n    uvicorn.run(\"main:app\", host=\"0.0.0.0\", port=8000)\n``` \nIn this example, we first\n\nBelow is test formula\n\n$${\\rm{Spread}}\\left(v,t\\right)=\\sqrt{\\frac{{\\sum }_{i=1}^{{N}_{{\\rm{lat}}}}{\\sum }_{j=1}^{{N}_{{\\rm{lon}}}}L\\left(i\\right)\\cdot {\\rm{var}}\\left({\\hat{{\\bf{A}}}}_{i\\,,j\\,,t}^{v}\\right)}{{N}_{{\\rm{lat}}}\\times {N}_{{\\rm{lon}}}}}$$",
+                        "role": "bot"
+                    }
+                ],
+                "createdAt": "2023-07-06T10:18:36.194Z"
+            }
+        }
+    },
+    "version": 0
+}

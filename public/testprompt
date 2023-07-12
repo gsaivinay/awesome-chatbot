@@ -1,0 +1,1 @@
+Python program to create a backend API using FastAPI, that should connect to postgres database, provide functionalities to authenticate users, register new users and generate auth tokens on successful logins using username and passwords. Provide a python markdown code block.

@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: Söhne, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.5;
+    font-weight: 400;
+    /* font-size: 16px; */
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+
+    --primary-color: bg-gray-800;
+    --tw-bg-opacity: 1;
+
+    --header-height: 3.25rem;
+    --sidebar-width: 18rem;
+}
+
+body {
+    background: white;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+    a:hover {
+        color: #747bff;
+    }
+    /* button {
+    background-color: #f9f9f9;
+  } */
+}
+
+::-webkit-scrollbar {
+    height: 1rem;
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 0.5rem;
+    width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+    --tw-border-opacity: 1;
+    background-color: rgba(217, 217, 227, 0.8);
+    border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+    border-radius: 9999px;
+    border-width: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(236, 236, 241, var(--tw-bg-opacity));
+}
+
+.mantine-Modal-inner {
+    left: 0;
+    right: 0;
+}
+
+.mantine-Paper-root {
+    background: transparent;
+}
+
+.mantine-Modal-body {
+    padding: 0;
+}
+
+/* .dark ::-webkit-scrollbar-thumb {
+    --tw-bg-opacity: 1;
+    background-color: rgba(86,88,105,var(--tw-bg-opacity))
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(172,172,190,var(--tw-bg-opacity))
+} */
+
+/* @media (min-width: 768px) {
+    .scrollbar-trigger ::-webkit-scrollbar-thumb {
+        visibility:hidden
+    }
+
+    .scrollbar-trigger:hover ::-webkit-scrollbar-thumb {
+        visibility: visible
+    }
+} */
