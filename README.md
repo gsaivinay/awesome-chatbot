@@ -1,3 +1,5 @@
+[![CodeQL](https://github.com/gsaivinay/awesome-chatbot/actions/workflows/codeql.yml/badge.svg)](https://github.com/gsaivinay/awesome-chatbot/actions/workflows/codeql.yml)
+
 Simple and functional chat bot created with NextJs, uses [HuggingFaceH4/starchat-beta](https://huggingface.co/HuggingFaceH4/starchat-beta) model for generating responses.
 
 ## Getting Started

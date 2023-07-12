@@ -24,6 +24,7 @@
         "@mantine/modals": "^6.0.13",
         "@mantine/next": "^6.0.13",
         "@mantine/notifications": "^6.0.13",
+        "@vercel/analytics": "^1.0.1",
         "eventsource-parser": "^1.0.0",
         "highlight.js": "^11.8.0",
         "immer": "^10.0.2",

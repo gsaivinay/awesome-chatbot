@@ -1,15 +1,16 @@
+import "@/Common/wdyr";
 import "../Components/App/App.css";
 import "../Components/App/index.css";
 import "../Components/App/nprogress.css";
-import '@/Common/wdyr';
 
+import { Analytics } from "@vercel/analytics/react";
 import type { NextPage } from "next";
+import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { ThemeProvider } from "next-themes";
 import NProgress from "nprogress";
-import { type PropsWithChildren,useEffect } from "react";
+import { useEffect, type PropsWithChildren } from "react";
 
 import { useCustomTheme } from "@/Store/GlobalStore";
 import { CustomThemeType } from "@/types/globalTypes";
@@ -33,7 +34,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const Layout = Component.getLayout || CustomLayout;
     const router = useRouter();
     NProgress.configure({
-        template: `<div class="bar theme-${currentTheme}" role="bar"><div class="peg"></div></div>`
+        template: `<div class="bar theme-${currentTheme}" role="bar"><div class="peg"></div></div>`,
     });
 
     useEffect(() => {
@@ -65,6 +66,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Layout>
                 <Component {...pageProps} />
             </Layout>
+            <Analytics />
         </ThemeProvider>
     );
 }
