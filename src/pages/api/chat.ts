@@ -142,7 +142,7 @@ export default async function POST(req: Request) {
             return_full_text: false,
             // seed: 42,
             // seed: 17525618,
-            seed: 774221563936302000,
+            // seed: 774221563936302000,
             // seed: 774221563936302000
             // seed: 774221563936302000
             // stop: [`${inputToken}`, `\n${inputToken}`, endToken, "###", ],
@@ -171,6 +171,7 @@ export default async function POST(req: Request) {
     let hfClient = Hf;
     if(apiKey) {
         hfClient = new HfInference(apiKey);
+        // console.log(apiKey);
     }
 
     const response = await hfClient.textGenerationStream(payload);
