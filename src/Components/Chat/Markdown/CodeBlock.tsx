@@ -1,4 +1,4 @@
-import "highlight.js/styles/hybrid.css";
+import "highlight.js/styles/monokai-sublime.css";
 
 import hljs, { HighlightResult } from "highlight.js";
 import { FC, memo, useEffect, useRef, useState } from "react";
@@ -13,12 +13,18 @@ interface Props {
 
 const CodeBlock: FC<Props> = memo(
     ({ language, value }) => {
-        const languageRef = useRef<string>("");
-        if (language === "AUTO_DETECT") {
-            language = "";
-        }
+        const languageRef = useRef<string>(language);
+        const detectLanguage = useRef<boolean>(true);
+        const labguageTimeOut = useRef<NodeJS.Timeout>();
         useEffect(() => {
-            languageRef.current = language;
+            if (language === "AUTO_DETECT" || language === "" || !language) {
+                languageRef.current = "";
+                detectLanguage.current = true;
+            } else {
+                languageRef.current = language;
+                detectLanguage.current = false;
+                clearTimeout(labguageTimeOut.current);
+            }
         }, [language]);
 
         const [isCopied, setIsCopied] = useState<boolean>(false);
@@ -37,12 +43,14 @@ const CodeBlock: FC<Props> = memo(
         };
 
         let highlighted: HighlightResult;
-        if (languageRef.current === "") {
+        // console.log(languageRef.current);
+        if (languageRef.current === "" || !languageRef.current) {
             highlighted = hljs.highlightAuto(value);
             languageRef.current = highlighted.language!;
-            if (value.length < 2000) {
-                setTimeout(() => {
-                    languageRef.current = "";
+            if (value.length < 2000 && detectLanguage.current) {
+                labguageTimeOut.current = setTimeout(() => {
+                    if(detectLanguage.current)
+                        languageRef.current = "";
                 }, 500);
             }
         } else {
@@ -50,7 +58,7 @@ const CodeBlock: FC<Props> = memo(
         }
 
         const downloadAsFile = () => {
-            const fileExtension = programmingLanguages[language] || ".file";
+            const fileExtension = programmingLanguages[highlighted.language || ""] || ".file";
             const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
             const fileName = window.prompt("Enter file name" || "", suggestedFileName);
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TbLogout, TbMistOff, TbTrash } from "react-icons/tb";
 
 import { ChatListButton, CreateChatButton } from "@/Components/Chat/Buttons";
-import { SettingsModal } from "@/Components/UserSettings/Settings";
+import SettingsModal from "@/Components/UserSettings/Settings";
 import { useConversationEntityStore, useConversationStore } from "@/Store/ChatStore";
 import useSideBarState from "@/Store/GlobalStore";
 import { ConversationEntityStore, ConversationStore } from "@/types/chatMessageType";
@@ -86,7 +86,7 @@ const LeftNavBar = () => {
                             </button>
                         </div>
                         <div className="relative flex items-center">
-                            <SettingsModal />
+                            <SettingsModal key="settings-modal" />
                         </div>
                         <div className="relative flex items-center">
                             <button

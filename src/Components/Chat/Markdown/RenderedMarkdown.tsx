@@ -26,12 +26,12 @@ const RenderedMarkdown = memo((props: MarkDownProps) => {
     const components: ReactMarkdownOptions["components"] = useMemo(() => {
         return {
             code: ({ node, inline, className, children, ...props }) => {
-                const match = /language-(\w+)/.exec(className || "");
+                const match = /language-(\w+)/.exec(className || "") || [];
                 return !inline ? (
                     <CodeBlock
                         key={`${id}-${node.position?.start.line}-${node.position?.start.column}`}
                         // id={`${id}-${node.position?.start.line}-${node.position?.start.column}`}
-                        language={(match && match[1]) || "AUTO_DETECT"}
+                        language={match && match[1]}
                         value={String(children).replace(/\n$/, "")}
                     />
                 ) : (

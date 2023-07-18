@@ -1,51 +1,51 @@
 import { Group, Modal, PasswordInput, Select } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ChangeEvent, PropsWithChildren } from "react";
+import { FC, memo, PropsWithChildren, } from "react";
 import { TbSettings, TbX } from "react-icons/tb";
 
-import { useApiKey, useCustomTheme } from "@/Store/GlobalStore";
-import { ApiKeyType, CustomThemeType } from "@/types/globalTypes";
+import { useCustomTheme } from "@/Store/GlobalStore";
+import { CustomThemeType } from "@/types/globalTypes";
 
-export const SettingsModal: React.FC<PropsWithChildren> = () => {
+// tailwind classes
+const SelectInputClasses = {
+    input: `manual-mantine-input`,
+    item: `manual-mantine-dropdown-list`,
+    label: `manual-mantine-label self-center`,
+    icon: `fill-primary`,
+    root: `grid-container `,
+};
+
+const ModalClasses = {
+    content: `shadow-none h-full w-auto flex justify-center items-center`,
+    body: `rounded-lg overflow-hidden`,
+};
+
+const ModalOverlayProps = {
+    opacity: 0.65,
+    // blur: 3,
+};
+
+const SettingsModal: FC<PropsWithChildren> = memo(() => {
     const [currentTheme, setCurrentTheme] = useCustomTheme((state: CustomThemeType) => [
         state.currentTheme,
         state.setCurrentTheme,
     ]);
-    const [apiKey, setApiKey] = useApiKey((state: ApiKeyType) => [state.apiKey, state.setApiKey]);
 
     const [opened, { open, close }] = useDisclosure(false);
-
-    // tailwind classes
-    const SelectInputClasses = {
-        input: `manual-mantine-input`,
-        item: `manual-mantine-dropdown-list`,
-        label: `manual-mantine-label self-center`,
-        icon: `fill-primary`,
-        root: `grid-container `,
-    };
-
-    function setKeyHandler(event: ChangeEvent<HTMLInputElement>): void {
-        setApiKey(event.target.value);
-    }
 
     return (
         <>
             <Modal
                 opened={opened}
                 onClose={close}
+                key={"global-settings-modal"}
                 // title="Settings"
                 // scrollAreaComponent={ScrollArea.Autosize}
                 centered
-                classNames={{
-                    content: `shadow-none h-full w-auto flex justify-center items-center`,
-                    body: `rounded-lg overflow-hidden`,
-                }}
+                classNames={ModalClasses}
                 withCloseButton={false}
                 size="auto"
-                overlayProps={{
-                    opacity: 0.65,
-                    // blur: 3,
-                }}
+                overlayProps={ModalOverlayProps}
             >
                 <div className={`flex h-[15rem] w-[30rem] flex-col justify-between rounded-lg theme-${currentTheme}`}>
                     <div className="flex justify-between bg-primary p-3 text-brand">
@@ -58,7 +58,7 @@ export const SettingsModal: React.FC<PropsWithChildren> = () => {
                         <Select
                             label="Theme:"
                             data={[
-                                "oceanblue",
+                                "tui",
                                 "purple",
                                 "riptide",
                                 "goldsand",
@@ -74,13 +74,7 @@ export const SettingsModal: React.FC<PropsWithChildren> = () => {
                             maxDropdownHeight={180}
                             onChange={setCurrentTheme}
                         />
-                        <PasswordInput
-                            label="API Key:"
-                            placeholder="API Key"
-                            value={apiKey}
-                            onChange={setKeyHandler}
-                            classNames={SelectInputClasses}
-                        />
+                        <PasswordInput label="API Key:" placeholder="API Key" classNames={SelectInputClasses} />
                     </div>
                 </div>
             </Modal>
@@ -100,4 +94,8 @@ export const SettingsModal: React.FC<PropsWithChildren> = () => {
             </Group>
         </>
     );
-};
+});
+
+SettingsModal.displayName = "SettingsModal";
+
+export default SettingsModal;

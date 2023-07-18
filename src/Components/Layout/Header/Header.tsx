@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AiOutlineGithub } from "react-icons/ai";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import useSideBarState from "@/Store/GlobalStore";
@@ -26,6 +27,7 @@ const Header = () => {
                 </div>
             </div>
             <div className="flex items-center gap-4">
+                <a href="https://github.com/gsaivinay/awesome-chatbot" target="_blank"><AiOutlineGithub className="text-4xl hover:text-brand" /></a>
                 <button className="button-core rounded-lg border-brand/30" onClick={toggleRightSidebar}>
                     {rightSidebarOpen ? <FiChevronRight className="text-xl" /> : <FiChevronLeft className="text-xl" />}
                 </button>
