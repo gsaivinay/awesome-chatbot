@@ -58,7 +58,7 @@ const SettingsModal: FC<PropsWithChildren> = memo(() => {
                         <Select
                             label="Theme:"
                             data={[
-                                "tui",
+                                "oceanblue",
                                 "purple",
                                 "riptide",
                                 "goldsand",
