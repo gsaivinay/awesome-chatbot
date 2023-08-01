@@ -140,30 +140,10 @@ export default async function POST(req: Request) {
             // repetition_penalty: reqBody.repetition_penalty,
             truncate: 7168,
             return_full_text: false,
-            // seed: 42,
-            // seed: 17525618,
-            // seed: 774221563936302000,
-            // seed: 774221563936302000
-            // seed: 774221563936302000
-            // stop: [`${inputToken}`, `\n${inputToken}`, endToken, "###", ],
             stop: ["<|endoftext|>", "<|user|>", "<|end|>"],
             details: true,
             use_cache: false,
         },
-        // parameters: {
-        //     max_new_tokens: 512,
-        //     do_sample: false,
-        //     // temperature: 0.3,
-        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //     // @ts-ignore (this is a valid parameter specifically in OpenAssistant models)
-        //     // typical_p: 0.7,
-        //     // top_k: 50,
-        //     // top_p: 0.95,
-        //     repetition_penalty: 1.2,
-        //     truncate: 1000,
-        //     return_full_text: false,
-        //     stop: [`\n${inputToken}`, endToken],
-        // },
     };
 
     // console.log(payload);
