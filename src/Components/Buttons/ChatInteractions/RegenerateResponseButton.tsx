@@ -12,6 +12,7 @@ const RegenerateResponseButton: React.FC = () => {
     return (
         <button
             type="button"
+            role="stop-generation"
             onClick={setProgressToDone}
             className="button-core border-200 bg-secondary p-2 font-normal hover:bg-200"
         >

@@ -5,7 +5,7 @@ import { createParser, type EventSourceParser, type ParsedEvent, type ReconnectI
  * @interface
  */
 export interface AIStreamCallbacks {
-    onStart?: () => Promise<void>;
+    onStart?: () => Promise<unknown>;
     onCompletion?: (completion: string) => Promise<void>;
     onToken?: (token: string) => Promise<void>;
 }
@@ -81,8 +81,13 @@ export function createCallbacksTransformer(
     const { onStart, onToken, onCompletion } = callbacks || {};
 
     return new TransformStream({
-        async start(): Promise<void> {
-            if (onStart) await onStart();
+        async start(controller): Promise<void> {
+            if (onStart) {
+                const prefix: string = (await onStart()) as string;
+                if (prefix && prefix !== "") {
+                    controller.enqueue(textEncoder.encode(prefix));
+                }
+            }
         },
 
         async transform(message, controller): Promise<void> {

@@ -61,5 +61,5 @@ const ChatInterface: FC<Props> = memo(({ id }: Props) => {
 });
 
 ChatInterface.displayName = "ChatInterface";
-(ChatInterface as FC<Props> & {whyDidYouRender: boolean}).whyDidYouRender = true;
+(ChatInterface as FC<Props> & { whyDidYouRender: boolean }).whyDidYouRender = true;
 export default ChatInterface;

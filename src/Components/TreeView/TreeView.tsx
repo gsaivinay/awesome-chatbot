@@ -27,11 +27,11 @@ const TreeView: React.FC<TreeViewProps> = ({ data }) => {
     };
 
     return (
-        <div className="flex items-center mb-2">
+        <div className="mb-2 flex items-center">
             {isOpen ? (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mr-2 text-gray-600"
+                    className="mr-2 h-4 w-4 text-gray-600"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     onClick={handleClick}
@@ -45,7 +45,7 @@ const TreeView: React.FC<TreeViewProps> = ({ data }) => {
             ) : (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mr-2 text-gray-600"
+                    className="mr-2 h-4 w-4 text-gray-600"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     onClick={handleClick}
@@ -59,12 +59,12 @@ const TreeView: React.FC<TreeViewProps> = ({ data }) => {
             )}
             <span className="font-bold">{data.title}</span>
             {isOpen && (
-                <div className="pl-4 mt-2">
+                <div className="mt-2 pl-4">
                     {data.children.map((child) => (
-                        <div key={child.id} className="flex items-center mb-2">
+                        <div key={child.id} className="mb-2 flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-3 w-3 mr-2 text-gray-400"
+                                className="mr-2 h-3 w-3 text-gray-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                             >

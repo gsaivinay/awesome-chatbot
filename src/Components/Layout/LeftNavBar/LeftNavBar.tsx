@@ -13,24 +13,24 @@ const LeftNavBar = () => {
 
     const [leftSidebarClasses, setLeftSidebarClasses] = useState<string[]>([]);
 
-    const [conversationMap, setEntityConversation, removeConversationMap] = useConversationEntityStore((state: ConversationEntityStore) => [
-        state.conversationMap,
-        state.setConversation,
-        state.removeConversation,
-    ]);
+    const [conversationMap, setEntityConversation, removeConversationMap] = useConversationEntityStore(
+        (state: ConversationEntityStore) => [state.conversationMap, state.setConversation, state.removeConversation]
+    );
 
-    const [selectedId, conversation, setCurrentConversation, clearConversation, setTitle] = useConversationStore((state: ConversationStore) => [
-        state.id,
-        state.conversation,
-        state.setCurrentConversation,
-        state.clearConversation,
-        state.setTitle
-    ]);
-    
+    const [selectedId, conversation, setCurrentConversation, clearConversation, setTitle] = useConversationStore(
+        (state: ConversationStore) => [
+            state.id,
+            state.conversation,
+            state.setCurrentConversation,
+            state.clearConversation,
+            state.setTitle,
+        ]
+    );
+
     const titleChangeHandler = (title: string) => {
         setTitle(title);
         setEntityConversation(selectedId!, conversation, title);
-    }
+    };
 
     useEffect(() => {
         if (!leftSidebarOpen) {
@@ -43,8 +43,11 @@ const LeftNavBar = () => {
     const convIds = Object.entries(conversationMap);
 
     return (
-        <div className={`sidebar-core flex-shrink-0 overflow-x-hidden ${leftSidebarClasses.join(" ")}`}>
-            <div className={`w-[var(--sidebar-width)] h-full`}>
+        <div
+            className={`sidebar-core flex-shrink-0 overflow-x-hidden ${leftSidebarClasses.join(" ")}`}
+            role="left-navigation"
+        >
+            <div className={`h-full w-[var(--sidebar-width)]`}>
                 <div className="flex h-full flex-none flex-col gap-2 p-2">
                     <CreateChatButton />
                     {/* <hr className="my-1 h-1 border-0 bg-gray-200 dark:bg-gray-700" /> */}

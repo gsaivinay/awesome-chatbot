@@ -1,11 +1,8 @@
 import { TextGenerationStreamOutput } from "@huggingface/inference";
 
-import { type AIStreamCallbacks,
-    createCallbacksTransformer,
-    // trimStartOfStreamHelper
-} from "./ai-stream";
+import { type AIStreamCallbacks,createCallbacksTransformer } from "./ai-stream";
 
-function createParser(res: AsyncGenerator<TextGenerationStreamOutput>) {
+function createParser(res: AsyncGenerator<TextGenerationStreamOutput>, onError?: () => void) {
     // const trimStartOfStream = trimStartOfStreamHelper();
     return new ReadableStream<string>({
         async pull(controller): Promise<void> {
@@ -23,7 +20,7 @@ function createParser(res: AsyncGenerator<TextGenerationStreamOutput>) {
 
                 if (value.details?.finish_reason === "length") {
                     // console.log(value);
-                    controller.enqueue(text)
+                    controller.enqueue(text);
                     controller.enqueue("<|im_not_finished|>");
                     controller.close();
                     return;
@@ -46,8 +43,9 @@ function createParser(res: AsyncGenerator<TextGenerationStreamOutput>) {
                     controller.enqueue(text);
                 }
             } catch (error: unknown) {
-                console.log("terminated");
-                console.log(error);
+                // console.log("terminated");
+                if (onError) onError();
+                // console.log(error);
                 controller.close();
                 res.throw("stop");
                 res.return("stop");
@@ -56,6 +54,10 @@ function createParser(res: AsyncGenerator<TextGenerationStreamOutput>) {
     });
 }
 
-export function HuggingFaceStream(res: AsyncGenerator<TextGenerationStreamOutput>, callbacks?: AIStreamCallbacks): ReadableStream {
-    return createParser(res).pipeThrough(createCallbacksTransformer(callbacks));
+export function HuggingFaceStream(
+    res: AsyncGenerator<TextGenerationStreamOutput>,
+    onError?: () => void,
+    callbacks?: AIStreamCallbacks
+): ReadableStream {
+    return createParser(res, onError).pipeThrough(createCallbacksTransformer(callbacks));
 }

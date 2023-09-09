@@ -4,15 +4,15 @@
 
 @layer components {
     .container-core {
-        @apply flex flex-col items-stretch w-screen h-screen;
+        @apply flex h-screen w-screen flex-col items-stretch;
     }
     .button-core {
-        @apply bg-transparent font-semibold py-2 px-2 border border-gray-300 hover:border-transparent rounded-lg 
-      text-brand  p-2 focus:outline-none hover:bg-secondary hover:border-secondary;
+        @apply rounded-lg border border-gray-300 bg-transparent p-2 px-2 py-2 font-semibold 
+      text-brand  hover:border-secondary hover:border-transparent hover:bg-secondary focus:outline-none;
     }
 
     .sidebar-core {
-        @apply bg-gray-50/10 border border-gray-200 p-0 overflow-auto transition-all duration-200 w-72 pt-2;
+        @apply w-72 overflow-auto border border-gray-200 bg-gray-50/10 p-0 pt-2 transition-all duration-200;
     }
 
     .closed {
@@ -20,57 +20,57 @@
     }
 
     .header-main {
-        @apply bg-primary text-brand py-4 px-1 flex justify-between items-center h-[var(--header-height)] shadow-md drop-shadow-sm z-10;
+        @apply z-10 flex h-[var(--header-height)] items-center justify-between bg-primary px-1 py-4 text-brand shadow-md drop-shadow-sm;
     }
 
     /* main container max height (100vh - height of main header) */
     .content-main {
-        @apply flex flex-1 justify-between items-stretch border-gray-400 max-h-[calc(100vh-(var(--header-height)))] rounded-md;
+        @apply flex max-h-[calc(100vh-(var(--header-height)))] flex-1 items-stretch justify-between rounded-md border-gray-400;
     }
 
     .footer-main {
-        @apply bg-gray-800 text-white py-4 px-6 h-[3.5rem];
+        @apply h-[3.5rem] bg-gray-800 px-6 py-4 text-white;
     }
     /* * {
         @apply transition-all duration-200;
     } */
 
     .default-button {
-        @apply flex-1 bg-transparent hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 hover:border-transparent rounded
+        @apply flex-1 rounded border border-gray-300 bg-transparent px-4 py-2 font-semibold text-gray-700 hover:border-transparent hover:bg-gray-200;
     }
 
     .bg-vert-light-gradient {
         background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 13.94%, #fff 54.73%);
     }
 
-    .manual-mantine-dropdown-list{
-        @apply text-brand hover:bg-gray-200 font-semibold;
+    .manual-mantine-dropdown-list {
+        @apply font-semibold text-brand hover:bg-gray-200;
         &[data-selected] {
             @apply bg-primary text-brand/80 hover:bg-primary;
         }
     }
 
-    .manual-mantine-label{
+    .manual-mantine-label {
         @apply text-brand;
     }
 
-    .manual-mantine-icon{
+    .manual-mantine-icon {
         @apply text-brand !important;
     }
 
-    .manual-mantine-input{
-        @apply text-brand ;
+    .manual-mantine-input {
+        @apply text-brand;
         &[type="checkbox"]:checked {
-            @apply bg-primary border-primary text-brand;
+            @apply border-primary bg-primary text-brand;
         }
     }
 
-    .manual-mantine-input:focus-within{
-        @apply text-brand border-primary;
+    .manual-mantine-input:focus-within {
+        @apply border-primary text-brand;
     }
 
-    .manual-mantine-input:focus-within{
-        @apply text-brand border-gray-300 outline-secondary;
+    .manual-mantine-input:focus-within {
+        @apply border-gray-300 text-brand outline-secondary;
     }
 
     .mantine-Modal-inner {
@@ -83,7 +83,6 @@
         grid-template-columns: 100px 1fr; /* First column: 200px, Second column: rest of the available space */
         grid-gap: 5px; /* Adjust the gap between columns as needed */
     }
-
 }
 
 @keyframes blink {
@@ -219,7 +218,7 @@
 .markdown td {
     border-bottom-width: 1px;
     border-left-width: 1px;
-    padding: 0.25rem 0.75rem;
+    padding: 0.25rem 0.55rem;
 }
 
 .markdown td:last-child {
@@ -243,8 +242,9 @@ pre:has(div.codeblock) {
     padding: 0;
 }
 
-code, pre {
-    font-family: Söhne Mono,Monaco,Andale Mono,Ubuntu Mono,monospace !important;
+code,
+pre {
+    font-family: Söhne Mono, Monaco, Andale Mono, Ubuntu Mono, monospace !important;
     font-weight: inherit;
     font-size: 14px !important;
 }

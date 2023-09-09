@@ -196,8 +196,8 @@ const getResponseForInputProgressive = async (
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "accept": "text/event-stream",
-            "Connection": "keep-alive",
+            accept: "text/event-stream",
+            Connection: "keep-alive",
         },
         body: JSON.stringify({
             inputText: `${text}`,

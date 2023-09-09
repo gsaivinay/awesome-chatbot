@@ -7,7 +7,7 @@ const useSideBarState = create<SideBarState>()(
     persist(
         (set) => ({
             leftSidebarOpen: true,
-            rightSidebarOpen: true,
+            rightSidebarOpen: false,
             toggleLeftSidebar: () =>
                 set((state: { leftSidebarOpen: boolean }) => ({ leftSidebarOpen: !state.leftSidebarOpen })),
             toggleRightSidebar: () =>

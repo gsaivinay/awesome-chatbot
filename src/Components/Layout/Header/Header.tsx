@@ -16,18 +16,23 @@ const Header = () => {
     ]);
 
     return (
-        <header className="header-main">
+        <header className="header-main" role="banner">
             <div className="flex items-center gap-4">
                 <button className="button-core rounded-lg border-brand/30" onClick={toggleLeftSidebar}>
                     {leftSidebarOpen ? <FiChevronLeft className="text-xl" /> : <FiChevronRight className="text-xl" />}
                 </button>
                 <div className="flex text-lg font-bold">
-                    <Image src="/logo.svg" alt="Logo" width={50} height={50} className="mr-2 text-brand fill-brand" />
+                    <Image src="/logo.svg" alt="Logo" width={50} height={50} className="mr-2 fill-brand text-brand" />
                     <span className="pt-2">Chatbot</span>
                 </div>
             </div>
-            <div className="flex items-center gap-4">
-                <a href="https://github.com/gsaivinay/awesome-chatbot" target="_blank"><AiOutlineGithub className="text-4xl hover:text-brand" /></a>
+            <div className="flex items-center gap-4 ">
+                <b>Current Model:</b> <a href="https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf" target="_blank">
+                    <span className="">codellama/CodeLlama-34b-Instruct-hf</span>
+                </a>
+                <a href="https://github.com/gsaivinay/awesome-chatbot" target="_blank">
+                    <AiOutlineGithub className="text-4xl hover:text-brand" />
+                </a>
                 <button className="button-core rounded-lg border-brand/30" onClick={toggleRightSidebar}>
                     {rightSidebarOpen ? <FiChevronRight className="text-xl" /> : <FiChevronLeft className="text-xl" />}
                 </button>

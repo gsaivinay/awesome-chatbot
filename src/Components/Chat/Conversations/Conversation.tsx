@@ -2,12 +2,12 @@ import { FC } from "react";
 import { useScrollToBottom, useSticky } from "react-scroll-to-bottom";
 
 import { FloatingButton } from "@/Components/Buttons/ChatInteractions";
-import { Message } from "@/types/chatMessageType";
+import { ConvInfo } from "@/types/chatMessageType";
 
 import BotMessage from "./BotMessage";
 import UserMessage from "./UserMessage";
 
-const ConversationList: FC<{ id: string; convInfo: Pick<Message, "id" | "role">[] | undefined }> & {
+const ConversationList: FC<{ id: string; convInfo: ConvInfo[] | undefined }> & {
     whyDidYouRender: boolean;
 } = ({ convInfo }) => {
     const scrollToBottom = useScrollToBottom();
@@ -45,5 +45,5 @@ const ConversationList: FC<{ id: string; convInfo: Pick<Message, "id" | "role">[
 };
 
 ConversationList.displayName = "ConversationList";
-ConversationList.whyDidYouRender = true;
+ConversationList.whyDidYouRender = false;
 export default ConversationList;

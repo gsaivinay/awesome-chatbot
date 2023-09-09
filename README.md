@@ -63,4 +63,4 @@ pnpm build:analyze
 - [ ] File upload and chat with file data
 - [ ] User login and authentication
 - [ ] Save chat history in database
-- [ ] Unit tests
+- [x] Unit tests

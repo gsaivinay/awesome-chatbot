@@ -16,8 +16,12 @@ const CodeBlock: FC<Props> = memo(
         const languageRef = useRef<string>(language);
         const detectLanguage = useRef<boolean>(true);
         const labguageTimeOut = useRef<NodeJS.Timeout>();
+        const unsupportedLanguage = !hljs.getLanguage(language);
+        if (unsupportedLanguage) {
+            languageRef.current = "";
+        }
         useEffect(() => {
-            if (language === "AUTO_DETECT" || language === "" || !language) {
+            if (language === "AUTO_DETECT" || language === "" || !language || unsupportedLanguage) {
                 languageRef.current = "";
                 detectLanguage.current = true;
             } else {
@@ -25,7 +29,7 @@ const CodeBlock: FC<Props> = memo(
                 detectLanguage.current = false;
                 clearTimeout(labguageTimeOut.current);
             }
-        }, [language]);
+        }, [language, unsupportedLanguage]);
 
         const [isCopied, setIsCopied] = useState<boolean>(false);
 
@@ -49,8 +53,7 @@ const CodeBlock: FC<Props> = memo(
             languageRef.current = highlighted.language!;
             if (value.length < 2000 && detectLanguage.current) {
                 labguageTimeOut.current = setTimeout(() => {
-                    if(detectLanguage.current)
-                        languageRef.current = "";
+                    if (detectLanguage.current) languageRef.current = "";
                 }, 500);
             }
         } else {

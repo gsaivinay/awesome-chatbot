@@ -5,7 +5,7 @@ const EditMessage = () => {
         <button
             type="button"
             aria-label="edit message"
-            className="p-1 rounded-md hover:bg-gray-100 hover:text-gray-700 md:invisible md:group-hover:visible"
+            className="rounded-md p-1 hover:bg-gray-100 hover:text-gray-700 md:invisible md:group-hover:visible"
         >
             <TbEdit size={20} />
         </button>

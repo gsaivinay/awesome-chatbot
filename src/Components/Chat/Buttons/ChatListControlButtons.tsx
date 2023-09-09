@@ -29,7 +29,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
     setIsRenaming,
 }) => {
     const [isDeleting, setIsDeleting] = useState(false);
-    
+
     const router = useRouter();
 
     const handleDeleteConversation = () => {
@@ -40,8 +40,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
     };
 
     const handleRenameConversation = () => {
-        if (titleRef!.current?.value)
-            setTitle(titleRef.current.value);
+        if (titleRef!.current?.value) setTitle(titleRef.current.value);
         setIsRenaming(false);
     };
 
@@ -49,7 +48,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
         return (
             <div className="absolute right-1 z-10 flex ">
                 <button
-                    className="button-core p-1 border-0"
+                    className="button-core border-0 p-1"
                     onClick={() => {
                         setIsRenaming(true);
                         titleRef.current?.focus();
@@ -59,7 +58,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
                     <TbEdit size="1rem" />
                 </button>
                 <button
-                    className="button-core p-1 border-0"
+                    className="button-core border-0 p-1"
                     onClick={() => {
                         setIsDeleting(true);
                     }}
@@ -74,7 +73,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
     const ConfirmActionControls = ({ confirm, cancel }: ActionProps) => (
         <div className="absolute right-1 z-10 flex">
             <button
-                className="button-core p-1 border-0"
+                className="button-core border-0 p-1"
                 onClick={() => {
                     confirm();
                 }}
@@ -82,7 +81,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
                 <TbCheck size="1rem" />
             </button>
             <button
-                className="button-core p-1 border-0"
+                className="button-core border-0 p-1"
                 onClick={() => {
                     cancel();
                 }}

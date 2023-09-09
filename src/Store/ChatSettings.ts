@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 import { create } from "zustand";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-import { createJSONStorage, devtools, persist } from "zustand/middleware";
+import { devtools } from "zustand/middleware";
 
 import { ChatResponseStatus } from "@/types/chatMessageType";
 import { GenerationSettings, GenerationSettingsState, PluginType, PluginTypeState } from "@/types/generationSettings";

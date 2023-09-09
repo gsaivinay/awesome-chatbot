@@ -5,4 +5,4 @@ import LikeButton from "./LikeButton";
 import RegenerateResponseButton from "./RegenerateResponseButton";
 import ShowHideButton from "./ShowHideButton";
 
-export { DislikeButton, EditMessage, FloatingButton, LikeButton, RegenerateResponseButton, ShowHideButton, };
+export { DislikeButton, EditMessage, FloatingButton, LikeButton, RegenerateResponseButton, ShowHideButton };

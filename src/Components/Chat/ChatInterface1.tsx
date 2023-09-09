@@ -31,26 +31,26 @@ const App = () => {
     };
 
     return (
-        <div className="flex flex-col overflow-hidden w-full h-full">
-            <div className="flex-grow border rounded-md border-gray-400 overflow-auto">
-                <div className="container mx-auto max-w-2xl h-full flex flex-col">
-                    <div className="overflow-y-auto flex-grow p-6">
+        <div className="flex h-full w-full flex-col overflow-hidden">
+            <div className="flex-grow overflow-auto rounded-md border border-gray-400">
+                <div className="container mx-auto flex h-full max-w-2xl flex-col">
+                    <div className="flex-grow overflow-y-auto p-6">
                         {messages.map((message, index) => (
                             <div
                                 key={index}
                                 className={
-                                    message.author === "user" ? "flex justify-start mb-4" : "flex justify-start mb-4"
+                                    message.author === "user" ? "mb-4 flex justify-start" : "mb-4 flex justify-start"
                                 }
                             >
                                 <div
                                     className={`${message.author === "user" ? "bg-indigo-500" : "bg-slate-500"}
-                                        rounded-full aspect-square h-full w-9 mr-4`}
+                                        mr-4 aspect-square h-full w-9 rounded-full`}
                                 />
                                 <div
                                     className={
                                         message.author === "user"
-                                            ? "bg-indigo-600 text-white p-2 rounded-lg max-w-xl"
-                                            : "bg-slate-200 text-gray-700 p-2 rounded-lg max-w-xl"
+                                            ? "max-w-xl rounded-lg bg-indigo-600 p-2 text-white"
+                                            : "max-w-xl rounded-lg bg-slate-200 p-2 text-gray-700"
                                     }
                                 >
                                     <p className="text-sm">{message.message}</p>
@@ -58,9 +58,9 @@ const App = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="p-6 flex">
+                    <div className="flex p-6">
                         <input
-                            className="flex-grow rounded-md border border-gray-300 py-2 px-4 bg-white focus:outline-none focus:border-indigo-500"
+                            className="flex-grow rounded-md border border-gray-300 bg-white px-4 py-2 focus:border-indigo-500 focus:outline-none"
                             type="text"
                             placeholder="Type your message here..."
                             value={inputValue}
@@ -69,7 +69,7 @@ const App = () => {
                         />
                         <button
                             type="button"
-                            className="ml-4 px-4 py-2 bg-indigo-800 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus-border-blue-500"
+                            className="focus-border-blue-500 ml-4 rounded-md bg-indigo-800 px-4 py-2 font-semibold text-white shadow-md hover:bg-indigo-700 focus:outline-none"
                             onClick={handleSendMessage}
                         >
                             Send

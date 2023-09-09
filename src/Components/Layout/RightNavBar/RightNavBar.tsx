@@ -2,26 +2,27 @@ import { Avatar, Group, NumberInput, Select, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { forwardRef, memo, useEffect, useState } from "react";
 
-import { useGenerationSettings, usePlugin } from "@/Store/ChatSettings";
+import { useChatResponseStatus, useGenerationSettings, usePlugin } from "@/Store/ChatSettings";
 import { useConversationEntityStore, useConversationStore } from "@/Store/ChatStore";
 import useSideBarState from "@/Store/GlobalStore";
-import { ConversationEntityStore, ConversationStore } from "@/types/chatMessageType";
+import { ChatResponseStatus, ConversationEntityStore, ConversationStore, SourceTypes } from "@/types/chatMessageType";
 import { GenerationSettings, GenerationSettingsState, PluginTypeState } from "@/types/generationSettings";
 import { SelectItemProps, SideBarState } from "@/types/globalTypes";
 
 const RightNavBar = memo(() => {
-    const [conversation, id, title, setCurrentConversation, removeLastMessage] = useConversationStore(
-        (state: ConversationStore) => [
+    const [conversation, id, title, setCurrentConversation, removeLastMessage, getCurrentConversationInfo] =
+        useConversationStore((state: ConversationStore) => [
             state.conversation,
             state.id,
             state.title,
             state.setCurrentConversation,
             state.removeLastMessage,
-        ]
-    );
+            state.getCurrentConversationInfo,
+        ]);
     const [setConversationMap] = useConversationEntityStore((state: ConversationEntityStore) => [
         state.setConversation,
     ]);
+    const [updateProgress] = useChatResponseStatus((state: ChatResponseStatus) => [state.updateProgress]);
     const [rightSidebarOpen] = useSideBarState((state: SideBarState) => [state.rightSidebarOpen]);
     const [setGenerationSettings] = useGenerationSettings((state: GenerationSettingsState) => [
         state.setGenerationSettings,
@@ -72,10 +73,10 @@ const RightNavBar = memo(() => {
 
     const form = useForm<GenerationSettings>({
         initialValues: {
-            max_new_tokens: 512,
+            max_new_tokens: 1024,
             do_sample: "true",
-            temperature: 0.3,
-            repetition_penalty: 1.0,
+            temperature: 0.2,
+            repetition_penalty: 1.2,
             top_k: 100,
             top_p: 0.96,
         },
@@ -121,7 +122,10 @@ const RightNavBar = memo(() => {
     };
 
     return (
-        <div className={`sidebar-core flex-shrink-0 overflow-hidden p-0 ${rightSidebarClasses.join(" ")}`}>
+        <div
+            className={`sidebar-core flex-shrink-0 overflow-hidden p-0 ${rightSidebarClasses.join(" ")}`}
+            role="right-navigation"
+        >
             <div className={`h-full w-[var(--sidebar-width)] overflow-x-hidden`}>
                 <div className="m-2 flex flex-col gap-2 rounded-lg border border-gray-300 p-2">
                     <div className="mb-1 text-center text-lg font-bold text-brand">Generation Settings</div>
@@ -215,7 +219,13 @@ const RightNavBar = memo(() => {
                         <button
                             className="button-core"
                             onClick={() => {
+                                updateProgress(false);
                                 removeLastMessage();
+                                const info = getCurrentConversationInfo();
+                                if (info[info.length - 1].role === SourceTypes.USER) {
+                                    // Remove another time
+                                    removeLastMessage();
+                                }
                                 setConversationMap(id!, conversation);
                             }}
                         >

@@ -26,7 +26,7 @@ export const CreateChatButton = () => {
     const router = useRouter();
     return (
         <button
-            className="flex items-center justify-center button-core "
+            className="button-core flex items-center justify-center "
             onClick={() => {
                 const newId = uuid();
                 createConversation(newId, []);
@@ -35,9 +35,9 @@ export const CreateChatButton = () => {
             }}
             disabled={inProgress}
         >
-            <div className="flex gap-1 items-center justify-center">
-            <AiOutlinePlus size="1rem" />
-            New chat
+            <div className="flex items-center justify-center gap-1">
+                <AiOutlinePlus size="1rem" />
+                New chat
             </div>
         </button>
     );

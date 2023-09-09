@@ -1,5 +1,3 @@
-import "katex/dist/katex.min.css";
-
 import { FC, memo, useState } from "react";
 import { HiArrowTopRightOnSquare } from "react-icons/hi2";
 
@@ -42,11 +40,11 @@ const BotMessage: FC<LocalProps> = memo(
                                     {/* {memoizedComponent} */}
                                 </div>
                                 <div className="w-full">
-                                    {showSources &&
-                                        (!inProgress || !isLast) &&
+                                    {((showSources && sources?.length) || 0 > 0) &&
+                                        // (!inProgress || !isLast) &&
                                         sources?.map((source, idx) => (
                                             <div key={idx}>
-                                                Source:{" "}
+                                                Source {idx + 1}:{" "}
                                                 <a
                                                     className="underline"
                                                     href={urls ? urls[idx] : ""}
@@ -66,9 +64,11 @@ const BotMessage: FC<LocalProps> = memo(
                                 <LikeButton />
                                 <DislikeButton />
                             </div>
-                            <div className="visible absolute right-0 flex translate-x-full justify-center gap-1 self-center pl-4 text-gray-400">
-                                <ShowHideButton isHidden={showSources} handler={toggleShowSources} />
-                            </div>
+                            {(sources?.length || 0 > 0) && (
+                                <div className="visible absolute right-0 flex translate-x-full justify-center gap-1 self-center pl-4 text-gray-400">
+                                    <ShowHideButton isHidden={showSources} handler={toggleShowSources} />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

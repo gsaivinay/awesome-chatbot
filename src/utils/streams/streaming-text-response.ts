@@ -28,11 +28,10 @@ export function streamToResponse(
         "Content-Type": "text/event-stream; charset=utf-8",
         ...init?.headers,
     });
-    response.on('close', () => {
-        console.log('disconnected');
+    response.on("close", () => {
+        console.log("disconnected");
         response.end();
     });
-
 
     const reader = res.getReader();
     function read() {

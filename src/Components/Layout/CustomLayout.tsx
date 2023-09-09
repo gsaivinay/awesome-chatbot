@@ -8,7 +8,7 @@ import { CustomThemeType } from "@/types/globalTypes";
 
 import HydrationZustand from "./HydrationZustand";
 
-const CustomLayout: React.FC<PropsWithChildren> & {whyDidYouRender: boolean} = ({ children }) => {
+const CustomLayout: React.FC<PropsWithChildren> & { whyDidYouRender: boolean } = ({ children }) => {
     const [currentTheme] = useCustomTheme((state: CustomThemeType) => [state.currentTheme]);
 
     return (

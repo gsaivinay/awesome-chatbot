@@ -24,6 +24,6 @@
             "@/*": ["./src/*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/chat/[id].tsx.bkp"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/chat/[id].tsx.bkp", "jest.config.ts", "jest.config.mjs"],
     "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 import { Group, Modal, PasswordInput, Select } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FC, memo, PropsWithChildren, } from "react";
+import { FC, memo,PropsWithChildren } from "react";
 import { TbSettings, TbX } from "react-icons/tb";
 
 import { useCustomTheme } from "@/Store/GlobalStore";

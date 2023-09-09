@@ -1,3 +1,5 @@
+import "katex/dist/katex.min.css";
+
 import { memo, useMemo } from "react";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 import rehypeKatex from "rehype-katex";
@@ -22,6 +24,8 @@ const RenderedMarkdown = memo((props: MarkDownProps) => {
     const { id } = { ...props };
     const [getMessageByIdx] = useConversationStore((state: ConversationStore) => [state.getMessageByIdx]);
     const conversation = getMessageByIdx(id);
+    // eslint-disable-next-line prefer-const
+    let { content, id: convId } = conversation || {};
 
     const components: ReactMarkdownOptions["components"] = useMemo(() => {
         return {
@@ -68,15 +72,18 @@ const RenderedMarkdown = memo((props: MarkDownProps) => {
     // }, []);
 
     return (
-        <MemoizedReactMarkdown
-            key={`${id}-${conversation?.id}`}
-            className="m-0"
-            remarkPlugins={remarkPlugins}
-            rehypePlugins={rehypePlugins}
-            components={components}
-        >
-            {conversation?.content}
-        </MemoizedReactMarkdown>
+        <>
+            <MemoizedReactMarkdown
+                key={`${id}-${convId}`}
+                className="m-0"
+                remarkPlugins={remarkPlugins}
+                rehypePlugins={rehypePlugins}
+                components={components}
+                linkTarget={"_blank"}
+            >
+                {content}
+            </MemoizedReactMarkdown>
+        </>
     );
 });
 

@@ -20,14 +20,14 @@ export type PluginDataType = {
     value: string;
     description: string;
     id: string;
-}
+};
 
 export type CustomThemeType = {
     currentTheme: string;
     setCurrentTheme: (currentTheme: string) => void;
-}
+};
 
 export type ApiKeyType = {
     apiKey: string | undefined;
     setApiKey: (currentTheme: string) => void;
-}
+};

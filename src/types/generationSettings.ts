@@ -20,7 +20,7 @@ export type PluginType = {
     value: string | undefined;
     description: string | undefined;
     id: string | undefined;
-}
+};
 
 export type PluginTypeState = PluginType & {
     setPlugin: (settings: PluginType) => void;

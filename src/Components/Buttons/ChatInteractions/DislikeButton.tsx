@@ -2,7 +2,11 @@ import { AiOutlineDislike } from "react-icons/ai";
 
 const DislikeButton = () => {
     return (
-        <button type="button" className="p-1 rounded-md hover:bg-gray-100 hover:text-gray-700 ">
+        <button
+            type="button"
+            data-testid="dislike-icon"
+            className="rounded-md p-1 hover:bg-gray-100 hover:text-gray-700 "
+        >
             <AiOutlineDislike size={20} />
         </button>
     );

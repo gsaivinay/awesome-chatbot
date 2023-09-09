@@ -9,7 +9,7 @@ const FloatingButton: FC<FloatingButtonProps> = ({ scrollToBottom }) => {
     return (
         <button
             type="button"
-            className="cursor-pointer absolute right-6 bottom-[124px] md:bottom-[120px] z-10 rounded-full border border-gray-200 text-gray-600 shadow-lg"
+            className="absolute bottom-[124px] right-6 z-10 cursor-pointer rounded-full border border-gray-200 text-gray-600 shadow-lg md:bottom-[120px]"
             onClick={scrollToBottom}
         >
             <TbArrowDown className="m-1" />
