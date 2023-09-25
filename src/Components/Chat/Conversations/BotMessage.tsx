@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FC, memo, useState } from "react";
 import { HiArrowTopRightOnSquare } from "react-icons/hi2";
 
@@ -23,7 +24,13 @@ const BotMessage: FC<LocalProps> = memo(
         };
 
         return (
-            <div className="group w-full border-black/10 text-gray-800 ">
+            <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: "0%" }}
+                exit={{ x: "-100%", transition: { duration: 0.35 } }}
+                // transition={{ type: "just", stiffness: 150, damping: 12 }}ś
+                className="group w-full border-black/10 text-gray-800 "
+            >
                 <div className="m-auto flex max-w-3xl gap-4 rounded-lg bg-secondary p-5 text-base">
                     <div className="relative flex h-9 w-9 flex-col items-center justify-center rounded-full border border-gray-400">
                         <BotAvatar />
@@ -72,7 +79,7 @@ const BotMessage: FC<LocalProps> = memo(
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         );
     },
     (prevProps, nextProps) => {

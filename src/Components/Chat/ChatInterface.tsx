@@ -1,14 +1,13 @@
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { FC, Key, memo, useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-// import ConversationList from "@/Components/Chat/Conversations/Conversation";
+import ConversationList from "@/Components/Chat/Conversations/Conversation";
 import { ChatInput } from "@/Components/Chat/Inputs";
 import { useConversationEntityStore, useConversationStore } from "@/Store/ChatStore";
 import { ConversationEntityStore, ConversationStore } from "@/types/chatMessageType";
 
-const ConversationList = dynamic(() => import("@/Components/Chat/Conversations/Conversation"), {});
+// const ConversationList = dynamic(() => import("@/Components/Chat/Conversations/Conversation"), {});
 
 interface Props {
     id: Key;

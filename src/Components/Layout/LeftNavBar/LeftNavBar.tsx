@@ -1,3 +1,4 @@
+import { AnimatePresence, Reorder } from "framer-motion";
 import { useEffect, useState } from "react";
 import { TbLogout, TbMistOff, TbTrash } from "react-icons/tb";
 
@@ -52,27 +53,33 @@ const LeftNavBar = () => {
                     <CreateChatButton />
                     {/* <hr className="my-1 h-1 border-0 bg-gray-200 dark:bg-gray-700" /> */}
                     <div className="flex flex-grow flex-col gap-1 overflow-auto">
-                        {convIds.length > 0 ? (
-                            convIds
-                                .map(([id, convMap]) => (
-                                    <ChatListButton
-                                        key={id}
-                                        id={id}
-                                        convMap={convMap}
-                                        selected={id === selectedId}
-                                        setCurrentConversation={setCurrentConversation}
-                                        setTitle={titleChangeHandler}
-                                        clearConversation={clearConversation}
-                                        removeConversationMap={removeConversationMap}
-                                    />
-                                ))
-                                .reverse()
-                        ) : (
-                            <div className="mt-4 flex flex-col items-center justify-center">
-                                <TbMistOff className="text-gray-400" size="1.5rem" />
-                                <p className="text-gray-400">No Conversations</p>
-                            </div>
-                        )}
+                        <Reorder.Group axis="y" values={convIds} onReorder={() => {}}>
+                            <AnimatePresence mode="sync">
+                                {convIds.length > 0 ? (
+                                    convIds
+                                        .map(([id, convMap]) => (
+                                            <Reorder.Item key={id} value={convMap} transition={{ type: "spring" }}>
+                                                <ChatListButton
+                                                    key={id}
+                                                    id={id}
+                                                    convMap={convMap}
+                                                    selected={id === selectedId}
+                                                    setCurrentConversation={setCurrentConversation}
+                                                    setTitle={titleChangeHandler}
+                                                    clearConversation={clearConversation}
+                                                    removeConversationMap={removeConversationMap}
+                                                />
+                                            </Reorder.Item>
+                                        ))
+                                        .reverse()
+                                ) : (
+                                    <div className="mt-4 flex flex-col items-center justify-center">
+                                        <TbMistOff className="text-gray-400" size="1.5rem" />
+                                        <p className="text-gray-400">No Conversations</p>
+                                    </div>
+                                )}
+                            </AnimatePresence>
+                        </Reorder.Group>
                     </div>
                     <hr className="my-1 h-1 border-0 bg-gray-200 dark:bg-gray-700" />
                     <div className="flex flex-col ">

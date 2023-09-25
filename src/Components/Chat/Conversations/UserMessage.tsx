@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
+import { motion } from "framer-motion";
 import { FC, memo } from "react";
 
 import { UserAvatar } from "@/Components/Chat/Avatars";
@@ -14,7 +15,13 @@ const UserMessage: FC<UserMessageProps> = memo(({ idx }) => {
     const [getMessageByIdx] = useConversationStore((state: ConversationStore) => [state.getMessageByIdx]);
     const conversation = getMessageByIdx(idx);
     return (
-        <div className="group w-full border-black/10 text-gray-800 ">
+        <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: "0%" }}
+            exit={{ x: "-100%", transition: { duration: 0.35 } }}
+            // transition={{ type: "just", stiffness: 150, damping: 12 }}
+            className="group w-full border-black/10 text-gray-800 "
+        >
             <div className="m-auto flex gap-4 p-4 text-base md:max-w-2xl md:gap-6 md:px-6 md:py-6  lg:max-w-2xl xl:max-w-3xl">
                 <div className="relative flex h-9 w-9 flex-col items-center justify-center rounded-full border border-brand">
                     <UserAvatar />
@@ -31,7 +38,7 @@ const UserMessage: FC<UserMessageProps> = memo(({ idx }) => {
                     <div className="flex justify-between" />
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 });
 

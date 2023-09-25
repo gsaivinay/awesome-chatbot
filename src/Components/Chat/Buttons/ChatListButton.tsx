@@ -1,3 +1,4 @@
+import { motion, usePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { FC, useEffect, useRef, useState } from "react";
 import { TbMessage } from "react-icons/tb";
@@ -18,6 +19,8 @@ interface LocalProps {
 }
 
 export const ChatListButton: FC<LocalProps> = (props) => {
+    const [isPresent, safeToRemove] = usePresence();
+
     const { id, convMap, setTitle, clearConversation, removeConversationMap, selected } = props;
     const [inProgress] = useChatResponseStatus((state: ChatResponseStatus) => [state.inProgress]);
 
@@ -45,10 +48,21 @@ export const ChatListButton: FC<LocalProps> = (props) => {
         }
     }, [isRenaming]);
 
+    useEffect(() => {
+        !isPresent && setTimeout(safeToRemove, 350);
+    }, [isPresent]);
+
     return (
-        <div className="relative flex items-center">
+        <motion.li
+            // layout
+            initial={{ y: -200 }}
+            animate={{ y: "0%" }}
+            exit={{ x: "-200%", transition: { duration: 0.35 } }}
+            transition={{ type: "spring", stiffness: 150, damping: 12 }}
+            className="relative flex items-center"
+        >
             <button
-                className={`button-core flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm ${
+                className={`button-core flex w-full transition-all cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm ${
                     selected ? "bg-primary/50 hover:bg-primary/50" : "hover:bg-secondary"
                 }`}
                 onClick={() => {
@@ -83,6 +97,6 @@ export const ChatListButton: FC<LocalProps> = (props) => {
                     setIsRenaming={setIsRenaming}
                 />
             )}
-        </div>
+        </motion.li>
     );
 };

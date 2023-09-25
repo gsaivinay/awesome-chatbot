@@ -55,7 +55,7 @@ const chatConfigs: Record<string, ChatConfig> = {
         inputToken: "<|user|>",
         respToken: "<|assistant|>",
         systemToken: "<|system|>",
-        endToken: "</s>",
+        endToken: "<|endoftext|>",
         systemPrompt: systemPrompt,
     },
     openassistantOrcaLlama: {
