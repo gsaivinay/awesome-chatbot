@@ -12,6 +12,11 @@ const config = {
     // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 
     preset: "ts-jest",
+    transform: {
+        '^.+\\.ts?$': 'ts-jest',
+        '^.+\\.tsx?$': 'ts-jest',
+        '^.+\\.js?$': 'ts-jest',
+    },
     testEnvironment: "jest-environment-jsdom",
     setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
     coverageReporters: ["html", "lcov"],

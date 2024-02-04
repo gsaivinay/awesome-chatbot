@@ -27,8 +27,9 @@ const Header = () => {
                 </div>
             </div>
             <div className="flex items-center gap-4 ">
-                <b>Current Model:</b> <a href="https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf" target="_blank">
-                    <span className="">codellama/CodeLlama-34b-Instruct-hf</span>
+                <b>Current Model:</b>{" "}
+                <a href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1" target="_blank">
+                    <span className="">mistralai/Mixtral-8x7B-Instruct-v0.1</span>
                 </a>
                 <a href="https://github.com/gsaivinay/awesome-chatbot" target="_blank">
                     <AiOutlineGithub className="text-4xl hover:text-brand" />

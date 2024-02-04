@@ -44,6 +44,14 @@ const chatConfigs: Record<string, ChatConfig> = {
         instEndToken: "[/INST]",
         systemPrompt: systemPrompt,
     },
+    mixtral: {
+        inputToken: "[INST]",
+        respToken: "[/INST]",
+        systemToken: "<<SYS>>",
+        systemEndToken: "<</SYS>>",
+        endToken: "</s>",
+        systemPrompt: systemPrompt,
+    },
     falcon: {
         inputToken: "User",
         respToken: "OpenAssistant",
@@ -108,6 +116,22 @@ function buildPrompt(
                         return `${content} ${config.instEndToken}`;
                     } else {
                         return `\n${content} ${config.instToken}\n`;
+                    }
+                })
+                .join("");
+
+        if (continueGeneration) {
+            prompt = prompt.substring(0, prompt.lastIndexOf(`${config.instToken}\n`));
+        }
+    } else if (configName === "mixtral") {
+        prompt =
+            `${config.systemToken}\n${config.systemPrompt}\n${config.systemEndToken}\n` +
+            messages
+                .map(({ content, role }) => {
+                    if (role === "user") {
+                        return ` ${config.inputToken} ${content} ${config.respToken}`;
+                    } else {
+                        return `\n${content} ${config.endToken}\n`;
                     }
                 })
                 .join("");
@@ -181,7 +205,7 @@ export default async function POST(req: Request, res: Response) {
     const continueGeneration: boolean = reqBody.continueGeneration || false;
     const apiKey: string | undefined = reqBody.apiKey || undefined;
 
-    const configName = "llama2";
+    const configName = "mixtral";
 
     // if (plugin.id !== undefined && plugin.id !== null && plugin.id !== "") {
     //     console.log("plugin id is: " + plugin.id);
@@ -197,9 +221,10 @@ export default async function POST(req: Request, res: Response) {
     };
 
     // prompt = plainPompt(reqBody.messages) + "";
+    // console.log(prompt);
 
     const payload = {
-        model: "codellama/CodeLlama-34b-Instruct-hf",
+        model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
         inputs: prompt,
         parameters: {
             max_new_tokens: reqBody.max_new_tokens,
@@ -211,7 +236,7 @@ export default async function POST(req: Request, res: Response) {
             top_k: reqBody.top_k,
             top_p: reqBody.top_p,
             repetition_penalty: reqBody.repetition_penalty,
-            truncate: 4096,
+            truncate: 12000,
             return_full_text: false,
             stop: [`${inputToken}`, `<|end|>`, endToken, "###"],
             // stop: ["<|endoftext|>", "<|user|>", "</s>", instToken_Llama2],

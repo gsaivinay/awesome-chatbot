@@ -58,11 +58,11 @@ export const ChatListButton: FC<LocalProps> = (props) => {
             initial={{ y: -200 }}
             animate={{ y: "0%" }}
             exit={{ x: "-200%", transition: { duration: 0.35 } }}
-            transition={{ type: "spring", stiffness: 150, damping: 12 }}
+            transition={{ type: "spring", stiffness: 150, damping: 16 }}
             className="relative flex items-center"
         >
             <button
-                className={`button-core flex w-full transition-all cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm ${
+                className={`button-core flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm transition-all ${
                     selected ? "bg-primary/50 hover:bg-primary/50" : "hover:bg-secondary"
                 }`}
                 onClick={() => {

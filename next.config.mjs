@@ -9,6 +9,7 @@ const __dirname = dirname(__filename);
 const nextConfig = {
     productionBrowserSourceMaps: false,
     reactStrictMode: false,
+    output: "standalone",
     webpack(config, { dev, isServer }) {
         if (dev && !isServer) {
             const originalEntry = config.entry;

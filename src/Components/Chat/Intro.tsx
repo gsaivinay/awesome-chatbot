@@ -4,7 +4,7 @@ const Intro = () => {
             <div className="text-center text-4xl font-bold text-brand ">Welcome to Open Assistant</div>
             <div className="text-center text-lg text-gray-800 ">
                 <div className="mb-8">
-                    Discover the Power of Open Assistant powered by codellama/CodeLlama-34b-Instruct-hf model
+                    Discover the Power of Open Assistant powered by mistralai/Mixtral-8x7B-Instruct-v0.1 model
                 </div>
             </div>
             <div className="text-center text-gray-500 ">

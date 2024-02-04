@@ -28,7 +28,7 @@ const RightNavBar = memo(() => {
         state.setGenerationSettings,
     ]);
     const [_setPlugin] = usePlugin((state: PluginTypeState) => [state.setPlugin]);
-    const [rightSidebarClasses, setRightSidebarClasses] = useState<string[]>([]);
+    const [rightSidebarClasses, setRightSidebarClasses] = useState<string[]>(["w-0"]);
 
     useEffect(() => {
         if (!rightSidebarOpen) {
@@ -73,7 +73,7 @@ const RightNavBar = memo(() => {
 
     const form = useForm<GenerationSettings>({
         initialValues: {
-            max_new_tokens: 1024,
+            max_new_tokens: 2048,
             do_sample: "true",
             temperature: 0.2,
             repetition_penalty: 1.2,

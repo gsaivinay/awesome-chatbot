@@ -6,20 +6,18 @@ import "../Components/App/nprogress.css";
 import { Analytics } from "@vercel/analytics/react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { ThemeProvider } from "next-themes";
 import NProgress from "nprogress";
 import { type PropsWithChildren,useEffect } from "react";
 
+import CustomLayout from "@/Components/Layout/CustomLayout";
 import { useCustomTheme } from "@/Store/GlobalStore";
 import { CustomThemeType } from "@/types/globalTypes";
-
-// import CustomLayout from "@/Components/Layout/CustomLayout";
-const CustomLayout = dynamic(() => import("@/Components/Layout/CustomLayout"), {
-    ssr: false,
-    // loading: () => <Intro />,
-});
+// const CustomLayout = dynamic(() => import("@/Components/Layout/CustomLayout"), {
+//     ssr: false,
+//     // loading: () => <Intro />,
+// });
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
     getLayout?: (props: PropsWithChildren) => JSX.Element;
@@ -71,5 +69,5 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     );
 }
 
-// export default MyApp;
-export default dynamic(() => Promise.resolve(MyApp), { ssr: false });
+export default MyApp;
+// export default dynamic(() => Promise.resolve(MyApp), { ssr: false });
