@@ -30,6 +30,7 @@
         "framer-motion": "^10.18.0",
         "highlight.js": "11.9.0",
         "immer": "10.0.3",
+        "katex": "0.16.9",
         "lodash": "4.17.21",
         "nanoid": "4.0.2",
         "next": "14.1.0",

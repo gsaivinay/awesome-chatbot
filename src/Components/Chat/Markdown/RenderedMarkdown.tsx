@@ -1,8 +1,10 @@
+import "katex/dist/katex.min.css";
+
 import { memo, useMemo } from "react";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
+import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-1;
 
 import { useConversationStore } from "@/Store/ChatStore";
 import { ConversationStore } from "@/types/chatMessageType";
@@ -16,6 +18,7 @@ interface MarkDownProps {
 }
 
 const remarkPlugins = [remarkGfm, remarkMath];
+const rehypePlugins = [rehypeKatex];
 
 const RenderedMarkdown = memo((props: MarkDownProps) => {
     const { id } = { ...props };
@@ -74,6 +77,7 @@ const RenderedMarkdown = memo((props: MarkDownProps) => {
                 key={`${id}-${convId}`}
                 className="m-0"
                 remarkPlugins={remarkPlugins}
+                rehypePlugins={rehypePlugins}
                 components={components}
                 linkTarget={"_blank"}
             >
