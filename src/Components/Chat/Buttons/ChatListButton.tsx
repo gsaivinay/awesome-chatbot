@@ -50,6 +50,7 @@ export const ChatListButton: FC<LocalProps> = (props) => {
 
     useEffect(() => {
         !isPresent && setTimeout(safeToRemove, 350);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPresent]);
 
     return (
@@ -62,7 +63,7 @@ export const ChatListButton: FC<LocalProps> = (props) => {
             className="relative flex items-center"
         >
             <button
-                className={`button-core flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm transition-all ${
+                className={`button-core mb-2 flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm transition-all ${
                     selected ? "bg-primary/50 hover:bg-primary/50" : "hover:bg-secondary"
                 }`}
                 onClick={() => {
@@ -73,17 +74,20 @@ export const ChatListButton: FC<LocalProps> = (props) => {
                 disabled={inProgress || selected}
             >
                 <TbMessage className="text-brand" size="1.2rem" />
-                <input
-                    type="text"
-                    className={`relative max-h-5 flex-1 cursor-pointer appearance-none overflow-hidden text-ellipsis
+                {selected ?
+                    <input
+                        type="text"
+                        className={`relative max-h-5 flex-1 cursor-pointer appearance-none overflow-hidden text-ellipsis
                     whitespace-nowrap break-all bg-transparent text-left text-[14px] outline-none ${
                         selected ? "pr-12" : "pr-1"
                     } ${isRenaming ? "pr-0" : ""}`}
-                    ref={titleRef}
-                    defaultValue={convMap.title}
-                    disabled={!isRenaming}
-                    onKeyDown={handleKeyPress}
-                />
+                        ref={titleRef}
+                        defaultValue={convMap.title}
+                        disabled={!isRenaming}
+                        onKeyDown={handleKeyPress}
+                    /> : <span className="relative max-h-5 flex-1 cursor-pointer appearance-none overflow-hidden text-ellipsis
+                    whitespace-nowrap break-all bg-transparent text-left text-[14px] outline-none">{convMap.title}</span>
+                }
             </button>
             {selected && (
                 <ChatListButtonControls
