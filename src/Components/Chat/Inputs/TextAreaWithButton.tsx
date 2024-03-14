@@ -129,7 +129,7 @@ const TextAreaWithButton: FC = () => {
             <textarea
                 tabIndex={0}
                 disabled={inProgress}
-                className="m-0 max-h-40 w-full cursor-text resize-none border-0 bg-transparent p-0 pl-2 pr-7 text-brand focus:outline-none md:pl-0"
+                className="m-0 max-h-40 w-full cursor-text resize-none border-0 bg-transparent p-0 pl-2 pr-7 text-primary focus:outline-none md:pl-0"
                 ref={textAreaRef}
                 onInput={handleInput}
                 onKeyDown={handleKeyPress}

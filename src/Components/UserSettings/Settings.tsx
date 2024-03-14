@@ -1,6 +1,6 @@
 import { Group, Modal, PasswordInput, Select } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FC, memo,PropsWithChildren } from "react";
+import { FC, memo, PropsWithChildren } from "react";
 import { TbSettings, TbX } from "react-icons/tb";
 
 import { useCustomTheme } from "@/Store/GlobalStore";
@@ -48,32 +48,13 @@ const SettingsModal: FC<PropsWithChildren> = memo(() => {
                 overlayProps={ModalOverlayProps}
             >
                 <div className={`flex h-[15rem] w-[30rem] flex-col justify-between rounded-lg theme-${currentTheme}`}>
-                    <div className="flex justify-between bg-primary p-3 text-brand">
+                    <div className="flex justify-between bg-secondary p-3 text-primary">
                         <span className="text-lg font-semibold">Settings</span>
                         <button className="p-1" onClick={close}>
                             <TbX size="1rem" />
                         </button>
                     </div>
                     <div className={`flex flex-grow flex-col gap-2 bg-gray-100 p-5 theme-${currentTheme}`}>
-                        <Select
-                            label="Theme:"
-                            data={[
-                                "oceanblue",
-                                "purple",
-                                "riptide",
-                                "goldsand",
-                                "tonyspink",
-                                "cornflower",
-                                "mantis",
-                                "contessa",
-                                "bostonblue",
-                                "logan",
-                            ]}
-                            value={currentTheme}
-                            classNames={SelectInputClasses}
-                            maxDropdownHeight={180}
-                            onChange={setCurrentTheme}
-                        />
                         <PasswordInput label="API Key:" placeholder="API Key" classNames={SelectInputClasses} />
                     </div>
                 </div>
@@ -84,7 +65,7 @@ const SettingsModal: FC<PropsWithChildren> = memo(() => {
                     className={`button-core flex w-full cursor-pointer items-center gap-3 border-0 p-[0.85rem] text-sm`}
                     onClick={open}
                 >
-                    <TbSettings className="text-brand" size="1.2rem" />
+                    <TbSettings className="text-primary" size="1.2rem" />
                     <div
                         className={`relative max-h-5 flex-1 overflow-hidden text-ellipsis whitespace-nowrap break-all text-left text-[14px]`}
                     >

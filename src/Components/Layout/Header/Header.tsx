@@ -16,13 +16,13 @@ const Header = () => {
     ]);
 
     return (
-        <header className="header-main" role="banner">
+        <header className=" z-50 flex items-center justify-between w-full h-[var(--header-height)] px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl" role="banner">
             <div className="flex items-center gap-4">
                 <button className="button-core rounded-lg border-brand/30" onClick={toggleLeftSidebar}>
                     {leftSidebarOpen ? <FiChevronLeft className="text-xl" /> : <FiChevronRight className="text-xl" />}
                 </button>
                 <div className="flex text-lg font-bold">
-                    <Image src="/logo.svg" alt="Logo" width={50} height={50} className="mr-2 fill-brand text-brand" />
+                    <Image src="/logo.svg" alt="Logo" width={50} height={50} className="mr-2 fill-brand text-primary" />
                     <span className="pt-2">Chatbot</span>
                 </div>
             </div>
@@ -32,7 +32,7 @@ const Header = () => {
                     <span className="">mistralai/Mixtral-8x7B-Instruct-v0.1</span>
                 </a>
                 <a href="https://github.com/gsaivinay/awesome-chatbot" target="_blank">
-                    <AiOutlineGithub className="text-4xl hover:text-brand" />
+                    <AiOutlineGithub className="text-4xl hover:text-primary" />
                 </a>
                 <button className="button-core rounded-lg border-brand/30" onClick={toggleRightSidebar}>
                     {rightSidebarOpen ? <FiChevronRight className="text-xl" /> : <FiChevronLeft className="text-xl" />}

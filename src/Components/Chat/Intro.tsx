@@ -1,7 +1,7 @@
 const Intro = () => {
     return (
         <div className="transition-width relative flex h-full w-full flex-1 flex-grow flex-col items-stretch justify-center overflow-hidden">
-            <div className="text-center text-4xl font-bold text-brand ">Welcome to Open Assistant</div>
+            <div className="text-center text-4xl font-bold text-primary ">Welcome to Open Assistant</div>
             <div className="text-center text-lg text-gray-800 ">
                 <div className="mb-8">
                     Discover the Power of Open Assistant powered by mistralai/Mixtral-8x7B-Instruct-v0.1 model

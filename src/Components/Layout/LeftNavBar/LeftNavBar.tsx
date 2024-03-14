@@ -87,7 +87,7 @@ const LeftNavBar = () => {
                             <button
                                 className={`button-core flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm`}
                             >
-                                <TbTrash className="text-brand" size="1.2rem" />
+                                <TbTrash className="text-primary" size="1.2rem" />
                                 <div
                                     className={`} relative max-h-5 flex-1 overflow-hidden text-ellipsis whitespace-nowrap break-all text-left text-[14px]`}
                                 >
@@ -102,7 +102,7 @@ const LeftNavBar = () => {
                             <button
                                 className={`button-core flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm`}
                             >
-                                <TbLogout className="text-brand" size="1.2rem" />
+                                <TbLogout className="text-primary" size="1.2rem" />
                                 <div
                                     className={`} relative max-h-5 flex-1 overflow-hidden text-ellipsis whitespace-nowrap break-all text-left text-[14px]`}
                                 >

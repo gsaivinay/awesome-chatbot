@@ -8,7 +8,7 @@
     }
     .button-core {
         @apply rounded-lg border border-gray-300 bg-transparent p-2 px-2 py-2 font-semibold 
-      text-brand  hover:border-secondary hover:border-transparent hover:bg-secondary focus:outline-none;
+      text-primary  hover:border-secondary hover:border-transparent hover:bg-secondary focus:outline-none;
     }
 
     .sidebar-core {
@@ -17,10 +17,6 @@
 
     .closed {
         width: 0px;
-    }
-
-    .header-main {
-        @apply z-10 flex h-[var(--header-height)] items-center justify-between bg-primary px-1 py-4 text-brand shadow-md drop-shadow-sm;
     }
 
     /* main container max height (100vh - height of main header) */
@@ -44,33 +40,33 @@
     }
 
     .manual-mantine-dropdown-list {
-        @apply font-semibold text-brand hover:bg-gray-200;
+        @apply font-semibold text-primary hover:bg-gray-200;
         &[data-selected] {
-            @apply bg-primary text-brand/80 hover:bg-primary;
+            @apply bg-primary text-primary/80 hover:bg-primary;
         }
     }
 
     .manual-mantine-label {
-        @apply text-brand;
+        @apply text-primary;
     }
 
     .manual-mantine-icon {
-        @apply text-brand !important;
+        @apply text-primary !important;
     }
 
     .manual-mantine-input {
-        @apply text-brand;
+        @apply text-primary;
         &[type="checkbox"]:checked {
-            @apply border-primary bg-primary text-brand;
+            @apply border-primary bg-primary text-primary;
         }
     }
 
     .manual-mantine-input:focus-within {
-        @apply border-primary text-brand;
+        @apply border-primary text-primary;
     }
 
     .manual-mantine-input:focus-within {
-        @apply border-gray-300 text-brand outline-secondary;
+        @apply border-gray-300 text-primary outline-secondary;
     }
 
     .mantine-Modal-inner {

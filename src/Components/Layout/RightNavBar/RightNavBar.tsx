@@ -128,7 +128,7 @@ const RightNavBar = memo(() => {
         >
             <div className={`h-full w-[var(--sidebar-width)] overflow-x-hidden`}>
                 <div className="m-2 flex flex-col gap-2 rounded-lg border border-gray-300 p-2">
-                    <div className="mb-1 text-center text-lg font-bold text-brand">Generation Settings</div>
+                    <div className="mb-1 text-center text-lg font-bold text-primary">Generation Settings</div>
                     <NumberInput
                         label="Max new tokens"
                         {...form.getInputProps("max_new_tokens")}
@@ -205,7 +205,7 @@ const RightNavBar = memo(() => {
             </div> */}
                 {id !== null && id !== undefined && id !== "" && (
                     <div className="m-2 flex flex-col  gap-2 rounded-lg border border-gray-300 p-2 text-center">
-                        <div className="mb-1 text-center text-lg font-bold text-brand">Controls</div>
+                        <div className="mb-1 text-center text-lg font-bold text-primary">Controls</div>
                         <button
                             // className=" flex-1 bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-300 hover:border-transparent rounded"
                             className="button-core"

@@ -9,7 +9,7 @@
     }
 
     #nprogress .bar {
-        @apply bg-brand;
+        @apply bg-primary;
 
         position: fixed;
         z-index: 1031;

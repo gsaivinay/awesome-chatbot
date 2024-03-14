@@ -64,7 +64,7 @@ export const ChatListButton: FC<LocalProps> = (props) => {
         >
             <button
                 className={`button-core mb-2 flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm transition-all ${
-                    selected ? "bg-primary/50 hover:bg-primary/50" : "hover:bg-secondary"
+                    selected ? "bg-primary/20 hover:bg-primary/20" : "hover:bg-secondary"
                 }`}
                 onClick={() => {
                     // clearConversation();
@@ -73,7 +73,7 @@ export const ChatListButton: FC<LocalProps> = (props) => {
                 }}
                 disabled={inProgress || selected}
             >
-                <TbMessage className="text-brand" size="1.2rem" />
+                <TbMessage className="text-primary" size="1.2rem" />
                 {selected ?
                     <input
                         type="text"

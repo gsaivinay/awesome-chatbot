@@ -1,4 +1,5 @@
 import "@/Common/wdyr";
+import "@/styles/globals.css"
 import "../Components/App/App.css";
 import "../Components/App/index.css";
 import "../Components/App/nprogress.css";
