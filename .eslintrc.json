@@ -1,9 +1,16 @@
 {
     "root": true,
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "next/core-web-vitals"],
-    "plugins": ["simple-import-sort", "unused-imports"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "next/core-web-vitals",
+        "plugin:tailwindcss/recommended"
+    ],
+    "plugins": ["simple-import-sort", "unused-imports", "tailwindcss"],
     "rules": {
         "unused-imports/no-unused-imports": "warn",
+        "tailwindcss/no-custom-classname": "off",
+        "tailwindcss/classnames-order": "off",
         "simple-import-sort/imports": "warn",
         "simple-import-sort/exports": "warn",
         "eqeqeq": "warn",
@@ -24,5 +31,11 @@
                 "message": "please import from 'next-i18next'"
             }
         ]
+    },
+    "settings": {
+        "tailwindcss": {
+            "callees": ["cn", "cva"],
+            "config": "tailwind.config.js"
+        }
     }
 }

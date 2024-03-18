@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { assert } from "console";
 
-import { RegenerateResponseButton } from "@/Components/Buttons/ChatInteractions";
-import { useChatResponseStatus } from "@/Store/ChatSettings";
+import { RegenerateResponseButton } from "@/components/Buttons/ChatInteractions";
+import { useChatResponseStatus } from "@/store/ChatSettings";
 
 describe("RegenerateResponseButton", () => {
     const initialStoreState = useChatResponseStatus.getState();

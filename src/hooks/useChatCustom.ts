@@ -1,8 +1,8 @@
 import { MutableRefObject, useCallback, useEffect, useRef } from "react";
 
-import { useChatResponseStatus, useGenerationSettings, usePlugin } from "@/Store/ChatSettings";
-import { useConversationStore } from "@/Store/ChatStore";
-import { useApiKey } from "@/Store/GlobalStore";
+import { useChatResponseStatus, useGenerationSettings } from "@/store/ChatSettings";
+import { useConversationStore } from "@/store/ChatStore";
+import { useApiKey } from "@/store/GlobalStore";
 import {
     ChatResponseStatus,
     ConversationStore,
@@ -10,7 +10,7 @@ import {
     SourceTypes,
     type UseChatOptions,
 } from "@/types/chatMessageType";
-import { GenerationSettings, PluginType } from "@/types/generationSettings";
+import { GenerationSettings } from "@/types/generationSettings";
 import { ApiKeyType } from "@/types/globalTypes";
 import { createChunkDecoder, nanoid } from "@/utils/streams/utils";
 export type { UseChatOptions };
@@ -51,12 +51,11 @@ export function useChatCustom({
             state.addMessage,
             state.replaceLastMessage,
             state.removeLastMessage,
-        ]
+        ],
     );
     const [inProgress] = useChatResponseStatus((state: ChatResponseStatus) => [state.inProgress]);
     const settings = useGenerationSettings((state: GenerationSettings) => state);
     const [apiKey] = useApiKey((state: ApiKeyType) => [state.apiKey]);
-    const plugin = usePlugin((state: PluginType) => state);
 
     // Generate an unique id for the chat if not provided.
     // const hookId = useId();
@@ -116,14 +115,11 @@ export function useChatCustom({
                         ...extraMetadataRef.current.body,
                         ...settings,
                         apiKey,
-                        plugin: {
-                            ...plugin,
-                        },
                         continueGeneration: continueGeneration,
                     }),
                     headers: extraMetadataRef.current.headers || {},
                     signal: abortController.signal,
-                }).catch((err) => {
+                }).catch(err => {
                     // Restore the previous messages if the request fails.
                     // mutate(previousMessages, false);
                     throw err;
@@ -234,7 +230,7 @@ export function useChatCustom({
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [getConversation, abortControllerRef, settings, apiKey]
+        [getConversation, abortControllerRef, settings, apiKey],
     );
 
     const append = async (message: Message) => {

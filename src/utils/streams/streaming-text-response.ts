@@ -22,7 +22,7 @@ export class StreamingTextResponse extends Response {
 export function streamToResponse(
     res: ReadableStream,
     response: ServerResponse,
-    init?: { headers?: Record<string, string>; status?: number }
+    init?: { headers?: Record<string, string>; status?: number },
 ) {
     response.writeHead(init?.status || 200, {
         "Content-Type": "text/event-stream; charset=utf-8",

@@ -1,9 +1,9 @@
 import { render } from "@testing-library/react";
 
-import UserMessage from "@/Components/Chat/Conversations/UserMessage";
+import UserMessage from "@/components/Chat/Conversations/UserMessage";
 import { SourceTypes } from "@/types/chatMessageType";
 
-jest.mock("@/Components/Chat/Avatars", () => ({
+jest.mock("@/components/Chat/Avatars", () => ({
     UserAvatar: () => <div data-testid="mock-user-avatar" />,
 }));
 

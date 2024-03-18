@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import mockRouter from "next-router-mock";
 
-import Layouts from "@/Components/Layout";
+import Layouts from "@/components/Layout";
 
 jest.mock("next/router", () => require("next-router-mock"));
 

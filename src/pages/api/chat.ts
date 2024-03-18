@@ -2,9 +2,6 @@
 // eslint-disable-next-line unused-imports/no-unused-imports, @typescript-eslint/no-unused-vars
 import { HfInference } from "@huggingface/inference";
 
-import { PluginType } from "@/types/generationSettings";
-
-// import { HuggingFaceStream, StreamingTextResponse } from "ai";
 import { HuggingFaceStream } from "../../utils/streams/huggingface-stream";
 import { StreamingTextResponse } from "../../utils/streams/streaming-text-response";
 
@@ -100,7 +97,7 @@ const chatConfigs: Record<string, ChatConfig> = {
 function buildPrompt(
     configName: string,
     messages: { content: string; role: "system" | "user" | "assistant" }[],
-    continueGeneration: boolean
+    continueGeneration: boolean,
 ): string[] {
     const config = chatConfigs[configName as keyof typeof chatConfigs];
     let prompt: string;
@@ -173,9 +170,9 @@ async function buildPluginPompt(messages: { content: string; role: "system" | "u
     const url = `${baseUrl}?${params.toString()}`;
 
     return await fetch(url)
-        .then((response) => response.text())
-        .then((data) => data)
-        .catch((error) => {
+        .then(response => response.text())
+        .then(data => data)
+        .catch(error => {
             throw error;
         });
 }
@@ -201,7 +198,6 @@ export default async function POST(req: Request, res: Response) {
     // Extract the `messages` from the body of the request
     const reqBody = await req.json();
 
-    const plugin: PluginType = reqBody.plugin;
     const continueGeneration: boolean = reqBody.continueGeneration || false;
     const apiKey: string | undefined = reqBody.apiKey || undefined;
 

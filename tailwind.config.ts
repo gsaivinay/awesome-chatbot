@@ -1,5 +1,3 @@
-import { createThemes } from "tw-colors";
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ["class"],

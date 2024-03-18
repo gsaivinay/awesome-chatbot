@@ -1,24 +1,15 @@
-import "@/Common/wdyr";
-import "@/styles/globals.css"
-import "../Components/App/App.css";
-import "../Components/App/index.css";
-import "../Components/App/nprogress.css";
+import "@/common/wdyr";
+import "@/styles/globals.css";
+import "@/components/App/App.css";
+import "@/styles/catppuccin-macchiato.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { ThemeProvider } from "next-themes";
-import NProgress from "nprogress";
-import { type PropsWithChildren,useEffect } from "react";
+import { type PropsWithChildren } from "react";
 
-import CustomLayout from "@/Components/Layout/CustomLayout";
-import { useCustomTheme } from "@/Store/GlobalStore";
-import { CustomThemeType } from "@/types/globalTypes";
-// const CustomLayout = dynamic(() => import("@/Components/Layout/CustomLayout"), {
-//     ssr: false,
-//     // loading: () => <Intro />,
-// });
+import CustomLayout from "@/components/Layout/CustomLayout";
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
     getLayout?: (props: PropsWithChildren) => JSX.Element;
@@ -29,38 +20,14 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-    const [currentTheme] = useCustomTheme((state: CustomThemeType) => [state.currentTheme]);
     const Layout = Component.getLayout || CustomLayout;
-    const router = useRouter();
-    NProgress.configure({
-        template: `<div class="bar theme-${currentTheme}" role="bar"><div class="peg"></div></div>`,
-    });
-
-    useEffect(() => {
-        const handleStart = (_url: string) => {
-            NProgress.start();
-        };
-
-        const handleStop = () => {
-            NProgress.done();
-        };
-
-        router.events.on("routeChangeStart", handleStart);
-        router.events.on("routeChangeComplete", handleStop);
-        router.events.on("routeChangeError", handleStop);
-
-        return () => {
-            router.events.off("routeChangeStart", handleStart);
-            router.events.off("routeChangeComplete", handleStop);
-            router.events.off("routeChangeError", handleStop);
-        };
-    }, [router]);
 
     return (
         <ThemeProvider
             attribute="class"
             storageKey="nightwind-mode"
-            defaultTheme="system" // default "light"
+            defaultTheme="light"
+            disableTransitionOnChange
         >
             <Layout>
                 <Component {...pageProps} />

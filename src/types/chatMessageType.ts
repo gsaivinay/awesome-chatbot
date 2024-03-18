@@ -36,7 +36,7 @@ export type ConversationStore = {
     appendToLastMessage: (message: Message) => void;
     replaceLastMessage: (message: Message) => void;
     removeLastMessage: () => void;
-    setCurrentConversation: (id: string, conversation: Conversation, title?: string) => void;
+    setCurrentConversation: (id: string | undefined, conversation: Conversation, title?: string) => void;
     getCurrentConversation: () => {
         id: string | undefined;
         conversation: Conversation;

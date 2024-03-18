@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 
-import { DislikeButton } from "@/Components/Buttons/ChatInteractions";
+import { DislikeButton } from "@/components/Buttons/ChatInteractions";
 
 describe("DislikeButton", () => {
     test("renders without errors", () => {

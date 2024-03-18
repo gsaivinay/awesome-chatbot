@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import App from "@/Components/App";
+import App from "@/components/App";
 
 describe("Intro component", () => {
     test("renders welcome message", () => {

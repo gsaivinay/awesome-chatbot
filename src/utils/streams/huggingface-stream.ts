@@ -1,6 +1,6 @@
 import { TextGenerationStreamOutput } from "@huggingface/inference";
 
-import { type AIStreamCallbacks,createCallbacksTransformer } from "./ai-stream";
+import { type AIStreamCallbacks, createCallbacksTransformer } from "./ai-stream";
 
 function createParser(res: AsyncGenerator<TextGenerationStreamOutput>, onError?: () => void) {
     // const trimStartOfStream = trimStartOfStreamHelper();
@@ -57,7 +57,7 @@ function createParser(res: AsyncGenerator<TextGenerationStreamOutput>, onError?:
 export function HuggingFaceStream(
     res: AsyncGenerator<TextGenerationStreamOutput>,
     onError?: () => void,
-    callbacks?: AIStreamCallbacks
+    callbacks?: AIStreamCallbacks,
 ): ReadableStream {
     return createParser(res, onError).pipeThrough(createCallbacksTransformer(callbacks));
 }

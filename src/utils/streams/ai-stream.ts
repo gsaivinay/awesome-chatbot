@@ -42,7 +42,7 @@ export function createEventStreamTransformer(customParser: AIStreamParser): Tran
             });
         },
 
-        transform: (chunk) => {
+        transform: chunk => {
             eventSourceParser.feed(textDecoder.decode(chunk));
         },
 
@@ -74,7 +74,7 @@ export function createEventStreamTransformer(customParser: AIStreamParser): Tran
  * const transformer = createCallbacksTransformer(callbacks);
  */
 export function createCallbacksTransformer(
-    callbacks: AIStreamCallbacks | undefined
+    callbacks: AIStreamCallbacks | undefined,
 ): TransformStream<string, Uint8Array> {
     const textEncoder = new TextEncoder();
     let aggregatedResponse = "";
@@ -149,7 +149,7 @@ export function trimStartOfStreamHelper(): (text: string) => string {
 export function AIStream(
     response: Response,
     customParser: AIStreamParser,
-    callbacks?: AIStreamCallbacks
+    callbacks?: AIStreamCallbacks,
 ): ReadableStream {
     if (!response.ok) {
         throw new Error(`Failed to convert the response to stream. Received status code: ${response.status}.`);

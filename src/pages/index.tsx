@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import App from "@/Components/App";
+import App from "@/components/App";
 
 const Home = () => {
     return (

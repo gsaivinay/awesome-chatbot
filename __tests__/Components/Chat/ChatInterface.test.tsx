@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
-import { ChatInterface } from "@/Components/Chat";
-import { useConversationEntityStore, useConversationStore } from "@/Store/ChatStore";
+import { ChatInterface } from "@/components/Chat";
+import { useConversationEntityStore, useConversationStore } from "@/store/ChatStore";
 
 jest.mock("next/router", () => require("next-router-mock"));
 

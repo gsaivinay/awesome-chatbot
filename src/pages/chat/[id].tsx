@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { ChatInterface } from "@/Components/Chat";
+import { ChatInterface } from "@/components/Chat";
 
 const Chat: React.FC & { whyDidYouRender: boolean } = () => {
     const { query } = useRouter();
