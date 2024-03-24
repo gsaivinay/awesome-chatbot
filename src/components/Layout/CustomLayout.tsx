@@ -20,10 +20,6 @@ const CustomLayout: React.FC<PropsWithChildren> & { whyDidYouRender: boolean } =
                     {children}
                     <RightNavBar />
                 </div>
-                {/* Footer */}
-                {/* <footer className='footer-main'>
-                    <p>Copyright © 2023</p>
-                </footer> */}
             </div>
         </HydrationZustand>
     );

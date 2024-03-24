@@ -1,4 +1,6 @@
-import { memo, useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -8,7 +10,7 @@ import useSideBarState from "@/store/GlobalStore";
 import { ChatResponseStatus, ConversationEntityStore, ConversationStore, SourceTypes } from "@/types/chatMessageType";
 import { SideBarState } from "@/types/globalTypes";
 
-const RightNavBar = memo(() => {
+export default function RightNavBar() {
     const [conversation, id, title, setCurrentConversation, removeLastMessage, getCurrentConversationInfo] =
         useConversationStore((state: ConversationStore) => [
             state.conversation,
@@ -89,8 +91,4 @@ const RightNavBar = memo(() => {
             </div>
         </div>
     );
-});
-
-RightNavBar.displayName = "RightNavBar";
-
-export default RightNavBar;
+}

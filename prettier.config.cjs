@@ -36,4 +36,5 @@ module.exports = {
     //     require('prettier-plugin-organize-imports'),
     //     require('prettier-plugin-tailwindcss'),
     // ]
+    "plugins": ["prettier-plugin-tailwindcss"]
 };

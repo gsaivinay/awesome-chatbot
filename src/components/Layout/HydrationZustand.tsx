@@ -1,6 +1,8 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
-const HydrationZustand = ({ children }: { children: React.ReactNode }) => {
+export default function HydrationZustand({ children }: { children: React.ReactNode }) {
     const [isHydrated, setIsHydrated] = useState(false);
 
     // Wait till Next.js rehydration completes
@@ -9,6 +11,4 @@ const HydrationZustand = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return <>{isHydrated ? <div>{children}</div> : null}</>;
-};
-
-export default HydrationZustand;
+}

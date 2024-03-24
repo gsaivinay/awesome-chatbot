@@ -1,4 +1,4 @@
-import ChatInput from "./ChatInput";
-import TextAreaWithButton from "./TextAreaWithButton";
+import InputArea from "./InputArea";
+import InputContainer from "./InputContainer";
 
-export { ChatInput, TextAreaWithButton };
+export { InputArea, InputContainer };

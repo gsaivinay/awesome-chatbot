@@ -34,7 +34,6 @@ const RenderedMarkdown = memo((props: MarkDownProps) => {
                 return !inline ? (
                     <CodeBlock
                         key={`${id}-${node.position?.start.line}-${node.position?.start.column}`}
-                        // id={`${id}-${node.position?.start.line}-${node.position?.start.column}`}
                         language={match && match[1]}
                         value={String(children).replace(/\n$/, "")}
                     />
@@ -45,7 +44,11 @@ const RenderedMarkdown = memo((props: MarkDownProps) => {
                 );
             },
             table: ({ children }) => {
-                return <table className="border-collapse px-3 py-1">{children}</table>;
+                return (
+                    <div className="rounded-lg border border-border overflow-hidden p-1">
+                        <table className="m-0">{children}</table>
+                    </div>
+                );
             },
             th: ({ children }) => {
                 return (
@@ -60,12 +63,6 @@ const RenderedMarkdown = memo((props: MarkDownProps) => {
         };
     }, [id]);
 
-    // useEffect(() => {
-    //     return () => {
-    //         console.log(`unmount markdown block: ${id}`);
-    //     };
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
 
     return (
         <>

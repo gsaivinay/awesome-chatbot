@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa";
 import { v4 as uuid } from "uuid";
 
@@ -7,7 +7,7 @@ import { useChatResponseStatus } from "@/store/ChatSettings";
 import { useConversationEntityStore, useConversationStore } from "@/store/ChatStore";
 import { ChatResponseStatus, ConversationEntityStore, ConversationStore } from "@/types/chatMessageType";
 
-export const CreateChatButton = () => {
+export function CreateChatButton() {
     const [createConversation] = useConversationEntityStore((state: ConversationEntityStore) => [
         state.createConversation,
     ]);
@@ -32,4 +32,4 @@ export const CreateChatButton = () => {
             </div>
         </Button>
     );
-};
+}

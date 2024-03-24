@@ -81,7 +81,7 @@ const CodeBlock: FC<Props> = memo(
         };
 
         return (
-            <div className="codeblock relative font-sans flex flex-col border rounded-lg dark:border-primary/50 overflow-hidden">
+            <div className="codeblock relative flex flex-col overflow-hidden rounded-lg border font-sans dark:border-primary/50">
                 <div className="flex items-center justify-between px-4 py-1.5">
                     <span className="text-xs lowercase text-white">{languageRef.current}</span>
 
@@ -103,7 +103,7 @@ const CodeBlock: FC<Props> = memo(
                     </div>
                 </div>
                 <code
-                    className="hljs whitespace-pre p-1 rounded-lg overflow-auto px-4 py-1.5"
+                    className="hljs overflow-auto whitespace-pre rounded-lg p-1 px-4 py-1.5"
                     dangerouslySetInnerHTML={{ __html: highlighted.value }}
                 />
             </div>

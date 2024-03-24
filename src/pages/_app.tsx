@@ -23,12 +23,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const Layout = Component.getLayout || CustomLayout;
 
     return (
-        <ThemeProvider
-            attribute="class"
-            storageKey="nightwind-mode"
-            defaultTheme="light"
-            disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" storageKey="nightwind-mode" defaultTheme="light" disableTransitionOnChange>
             <Layout>
                 <Component {...pageProps} />
             </Layout>

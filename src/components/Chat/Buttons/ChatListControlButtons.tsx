@@ -1,6 +1,7 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { GrEdit, GrTrash } from "react-icons/gr";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { GrEdit } from "react-icons/gr";
 import { TbCheck, TbX } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,7 @@ type ActionProps = {
     cancel: () => void;
 };
 
-export const ChatListButtonControls: React.FC<LocalProps> = ({
+export function ChatListButtonControls({
     id,
     setTitle,
     clearConversation,
@@ -30,7 +31,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
     titleRef,
     isRenaming,
     setIsRenaming,
-}) => {
+}: LocalProps) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     const router = useRouter();
@@ -49,9 +50,9 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
 
     const InitControls = () => {
         return (
-            <div className="absolute right-1 z-10 flex mb-2">
+            <div className="absolute right-1 z-10 mb-2 flex">
                 <Button
-                    className="bg-transparent p-0 border-0 size-8"
+                    className="size-8 border-0 bg-transparent p-0"
                     variant={"secondary"}
                     size={"icon"}
                     onClick={() => {
@@ -63,7 +64,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
                     <GrEdit size="1rem" />
                 </Button>
                 <Button
-                    className="bg-transparent p-0 border-0 size-8"
+                    className="size-8 border-0 bg-transparent p-0"
                     variant={"secondary"}
                     size={"icon"}
                     onClick={() => {
@@ -71,16 +72,16 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
                     }}
                     disabled={inProgress}
                 >
-                    <GrTrash size="1rem" />
+                    <FaRegTrashCan size="1rem" />
                 </Button>
             </div>
         );
     };
 
     const ConfirmActionControls = ({ confirm, cancel }: ActionProps) => (
-        <div className="absolute right-1 z-10 flex mb-2">
+        <div className="absolute right-1 z-10 mb-2 flex">
             <Button
-                className="bg-transparent p-0 border-0 size-8"
+                className="size-8 border-0 bg-transparent p-0"
                 variant={"secondary"}
                 size={"icon"}
                 onClick={() => {
@@ -90,7 +91,7 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
                 <TbCheck size="1rem" />
             </Button>
             <Button
-                className="bg-transparent p-0 border-0 size-8"
+                className="size-8 border-0 bg-transparent p-0"
                 variant={"secondary"}
                 size={"icon"}
                 onClick={() => {
@@ -113,4 +114,4 @@ export const ChatListButtonControls: React.FC<LocalProps> = ({
     ) : (
         <InitControls />
     );
-};
+}

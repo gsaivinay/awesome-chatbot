@@ -1,7 +1,5 @@
 import { Intro } from "@/components/Chat";
 
-const App = () => {
+export default function App() {
     return <Intro />;
-};
-
-export default App;
+}

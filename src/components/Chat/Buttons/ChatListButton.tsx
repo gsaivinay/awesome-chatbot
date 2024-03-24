@@ -1,6 +1,8 @@
+"use client";
+
 import { motion, usePresence } from "framer-motion";
-import { useRouter } from "next/router";
-import { FC, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { LuMessagesSquare } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
@@ -19,7 +21,7 @@ interface LocalProps {
     selected: boolean;
 }
 
-export const ChatListButton: FC<LocalProps> = props => {
+export function ChatListButton({ ...props }: LocalProps) {
     const [isPresent, safeToRemove] = usePresence();
 
     const { id, convMap, setTitle, clearConversation, removeConversationMap, selected } = props;
@@ -64,7 +66,7 @@ export const ChatListButton: FC<LocalProps> = props => {
         >
             <Button
                 variant={"secondary"}
-                className={` mb-2 flex w-full cursor-pointer items-center gap-3 rounded-lg border-0 shadow-none p-[0.85rem] h-10 text-sm transition-all disabled:opacity-100 ${
+                className={` mb-2 flex h-10 w-full cursor-pointer items-center gap-3 rounded-lg border-0 p-[0.85rem] text-sm shadow-none transition-all disabled:opacity-100 ${
                     selected ? "bg-primary/30 hover:bg-primary/30" : "bg-transparent hover:bg-secondary"
                 }`}
                 onClick={() => {
@@ -108,4 +110,4 @@ export const ChatListButton: FC<LocalProps> = props => {
             )}
         </motion.li>
     );
-};
+}

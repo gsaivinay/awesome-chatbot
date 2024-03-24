@@ -1,9 +1,9 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiFillFastForward } from "react-icons/ai";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiSolidUpArrowSquare } from "react-icons/bi";
 import { FaStop } from "react-icons/fa6";
-import { SlReload } from "react-icons/sl";
+import { GrRefresh } from "react-icons/gr";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,7 +12,7 @@ import { useChatResponseStatus } from "@/store/ChatSettings";
 import { useConversationEntityStore, useConversationStore } from "@/store/ChatStore";
 import { ChatResponseStatus, ConversationEntityStore, ConversationStore, SourceTypes } from "@/types/chatMessageType";
 
-const TextAreaWithButton: FC = () => {
+export default function InputArea() {
     const [currentConversation, setTitle] = useConversationStore((state: ConversationStore) => [
         state.getCurrentConversation,
         state.setTitle,
@@ -36,13 +36,6 @@ const TextAreaWithButton: FC = () => {
     const [isEmptyInput, setIsEmptyInput] = useState<boolean>(false);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleInput = () => {
-        if (textAreaRef.current) {
-            textAreaRef.current.style.height = "1em";
-            textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-        }
-    };
-
     const submitHandler = async () => {
         let text = "";
         if (textAreaRef.current) {
@@ -57,7 +50,6 @@ const TextAreaWithButton: FC = () => {
                 content: text,
             });
         }
-        handleInput();
     };
 
     const reloadHandler = () => {
@@ -102,69 +94,67 @@ const TextAreaWithButton: FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inProgress]);
 
-    useEffect(() => {
-        if (textAreaRef.current) {
-            textAreaRef.current.style.height = "1em";
-            textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-        }
-    }, []);
-
     return (
-        <div className="relative flex w-full grow rounded-t-xl border border-border dark:border-primary/50 p-2 min-h-24 mb-0">
+        <div className="mb-0 flex min-h-24 w-full grow flex-col items-end gap-2 rounded-t-xl border border-border p-2 dark:border-primary/50">
             <Textarea
                 tabIndex={0}
                 disabled={inProgress}
-                className="max-h-40 min-h-10 focus-visible:ring-0 focus:outline-none"
+                className="h-10 max-h-40 min-h-10"
                 ref={textAreaRef}
-                onInput={handleInput}
                 onKeyDown={handleKeyPress}
                 onKeyUp={checkLength}
             />
-            <Button
-                type="button"
-                onClick={isEmptyInput ? reloadHandler : submitHandler}
-                disabled={inProgress || (isEmptyInput && conversation.length === 0)}
-                variant={"secondary"}
-                size={"icon"}
-                className={`absolute size-7 bottom-2.5 right-2 rounded-md border-0 bg-secondary p-1 disabled:bg-transparent 
-                    ${isEmptyInput && conversation.length !== 0 ? "w-28" : "w-7"}
-                `}
-            >
-                {inProgress ? (
-                    <AiOutlineLoading3Quarters className="animate-spin " size={20} />
-                ) : isEmptyInput && conversation.length !== 0 ? (
-                    <span className="flex">
-                        <SlReload className="" size={20} /> Regenreate
-                    </span>
-                ) : (
-                    <BiSolidUpArrowSquare className="" size={20} />
+            <div className="flex items-center justify-center gap-2">
+                <Button
+                    onClick={reloadHandler}
+                    disabled={inProgress}
+                    variant={"default"}
+                    className={`flex h-8 w-fit items-center justify-center gap-2 ${conversation.length === 0 || inProgress ? "hidden" : ""}`}
+                >
+                    <GrRefresh className="" size={20} /> <span>Regenreate</span>
+                </Button>
+                {isUnfinished && !inProgress && (
+                    <Button
+                        onClick={continueHandler}
+                        disabled={inProgress || (isEmptyInput && conversation.length === 0)}
+                        variant={"default"}
+                        size={"icon"}
+                        className="rounded-md border-0 p-1 "
+                    >
+                        <AiFillFastForward size={20} />
+                    </Button>
                 )}
-            </Button>
-            {isUnfinished && !inProgress && (
+                {inProgress && (
+                    <>
+                        <Button
+                            variant={"default"}
+                            className="flex h-8 w-fit items-center justify-center gap-2"
+                            role="stop-generation"
+                            onClick={() => updateProgress(false)}
+                        >
+                            <FaStop />
+                            <span>Stop generating</span>
+                        </Button>
+                        <Button
+                            variant={"ghost"}
+                            size={"icon"}
+                            className="flex size-8 items-center justify-center gap-2"
+                            disabled
+                        >
+                            <AiOutlineLoading3Quarters className="animate-spin " size={20} />
+                        </Button>
+                    </>
+                )}
                 <Button
-                    type="button"
-                    onClick={continueHandler}
-                    disabled={inProgress || (isEmptyInput && conversation.length === 0)}
-                    variant={"secondary"}
+                    onClick={isEmptyInput ? reloadHandler : submitHandler}
+                    disabled={inProgress || isEmptyInput}
+                    variant={"default"}
                     size={"icon"}
-                    className="absolute bottom-2.5 right-10 rounded-md border-0 bg-secondary p-1 disabled:bg-transparent "
+                    className={`size-8 rounded-md border-0 p-1 ${inProgress ? "hidden" : ""}`}
                 >
-                    <AiFillFastForward size={20} />
+                    <BiSolidUpArrowSquare className="" size={30} />
                 </Button>
-            )}
-            {inProgress && (
-                <Button
-                    variant={"secondary"}
-                    className="flex items-center justify-center gap-2 absolute size-7 bottom-2.5 right-28 w-fit"
-                    role="stop-generation"
-                    onClick={() => updateProgress(false)}
-                >
-                    <FaStop />
-                    <span>Stop generating</span>
-                </Button>
-            )}
+            </div>
         </div>
     );
-};
-
-export default TextAreaWithButton;
+}

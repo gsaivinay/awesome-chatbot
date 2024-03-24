@@ -1,4 +1,3 @@
-import { FC, memo, PropsWithChildren } from "react";
 import { TbSettings } from "react-icons/tb";
 
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useApiKey } from "@/store/GlobalStore";
 
-const SettingsModal: FC<PropsWithChildren> = memo(() => {
+export default function SettingsModal() {
     const [apiKey, setApiKey] = useApiKey(state => [state.apiKey, state.setApiKey]);
 
     return (
@@ -21,7 +20,7 @@ const SettingsModal: FC<PropsWithChildren> = memo(() => {
                     <div className={`relative max-h-5 flex-1 truncate break-all text-left text-[14px]`}>Settings</div>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] border-primary shadow-primary shadow-md">
+            <DialogContent className="border-primary shadow-md shadow-primary sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Settings</DialogTitle>
                 </DialogHeader>
@@ -44,8 +43,4 @@ const SettingsModal: FC<PropsWithChildren> = memo(() => {
             </DialogContent>
         </Dialog>
     );
-});
-
-SettingsModal.displayName = "SettingsModal";
-
-export default SettingsModal;
+}
