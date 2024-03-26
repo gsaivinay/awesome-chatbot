@@ -19,9 +19,9 @@ const useChatResponseStatus = create<ChatResponseStatus>()(
 );
 
 const useGenerationSettings = create<GenerationSettingsState>()((set, get) => ({
-    do_sample: true,
+    do_sample: false,
     max_new_tokens: 2048,
-    temperature: 0.2,
+    temperature: 0.7,
     repetition_penalty: 1.2,
     top_p: 0.95,
     top_k: 50,

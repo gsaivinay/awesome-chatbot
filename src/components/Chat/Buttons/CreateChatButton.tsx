@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { FaPlus } from "react-icons/fa";
+import { BiMessageAdd } from "react-icons/bi";
 import { v4 as uuid } from "uuid";
 
 import { Button } from "@/components/ui/button";
@@ -27,8 +27,8 @@ export function CreateChatButton() {
             disabled={inProgress}
         >
             <div className="flex items-center justify-center gap-1">
-                <FaPlus size="1rem" />
-                New chat
+                <BiMessageAdd size="1.2rem" />
+                Create new chat
             </div>
         </Button>
     );
