@@ -29,7 +29,7 @@ const BotMessage: FC<LocalProps> = memo(
                                         inProgress && isLast
                                             ? "streaming-blinker"
                                             : "after:invisible after:content-['▋']"
-                                    } prose max-w-5xl m-0 break-words dark:prose-invert prose-p:m-0 prose-pre:m-0 prose-pre:rounded-lg prose-pre:p-0 prose-ol:m-0 prose-li:m-0 `}
+                                    } prose max-w-4xl m-0 break-words dark:prose-invert prose-p:m-0 prose-pre:m-0 prose-pre:rounded-lg prose-pre:p-0 prose-ol:m-0 prose-li:m-0 `}
                                 >
                                     <RenderedMarkdown key={idx} id={idx} markdown={""} />
                                 </div>
