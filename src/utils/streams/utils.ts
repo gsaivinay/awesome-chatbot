@@ -5,7 +5,5 @@ export const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef
 
 export function createChunkDecoder() {
     const decoder = new TextDecoder();
-    return function (chunk: Uint8Array): string {
-        return decoder.decode(chunk, { stream: true });
-    };
+    return (chunk: Uint8Array): string => decoder.decode(chunk, { stream: true });
 }

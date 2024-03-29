@@ -1,17 +1,18 @@
-import { MutableRefObject, useCallback, useEffect, useRef } from "react";
+import { type MutableRefObject, useCallback, useEffect, useRef } from "react";
 
-import { useChatResponseStatus, useGenerationSettings } from "@/store/ChatSettings";
-import { useConversationStore } from "@/store/ChatStore";
-import { useApiKey } from "@/store/GlobalStore";
+import { useConversationStore } from "@/store/chatStore";
+import { useGenerationSettings } from "@/store/globalStore";
+import { useChatResponseStatus } from "@/store/globalStore";
+import { useApiKey } from "@/store/globalStore";
+import type { GenerationSettings } from "@/types/types";
+import type { ApiKeyType } from "@/types/types";
 import {
-    ChatResponseStatus,
-    ConversationStore,
+    type ActiveConversation,
+    type ChatResponseStatus,
     type Message,
     SourceTypes,
     type UseChatOptions,
-} from "@/types/chatMessageType";
-import { GenerationSettings } from "@/types/generationSettings";
-import { ApiKeyType } from "@/types/globalTypes";
+} from "@/types/types";
 import { createChunkDecoder, nanoid } from "@/utils/streams/utils";
 export type { UseChatOptions };
 
@@ -46,8 +47,8 @@ export function useChatCustom({
     body,
 }: UseChatOptions = {}): UseChatHelpers {
     const [getConversation, addMessage, replaceLastMessage, removeLastMessage] = useConversationStore(
-        (state: ConversationStore) => [
-            state.getCurrentConversation,
+        (state: ActiveConversation) => [
+            state.getActiveChat,
             state.addMessage,
             state.replaceLastMessage,
             state.removeLastMessage,
@@ -57,23 +58,6 @@ export function useChatCustom({
     const settings = useGenerationSettings((state: GenerationSettings) => state);
     const [apiKey] = useApiKey((state: ApiKeyType) => [state.apiKey]);
 
-    // Generate an unique id for the chat if not provided.
-    // const hookId = useId();
-    // const chatId = id || hookId;
-
-    // Store the chat state in SWR, using the chatId as the key to share states.
-    // const { data, mutate } = useSWR<Message[]>([api, chatId], null, {
-    //     fallbackData: initialMessages,
-    // });
-    // const messages = data!;
-
-    // Keep the latest messages in a ref.
-    // const messagesRef = useRef<Message[]>(conversation);
-    // useEffect(() => {
-    //     messagesRef.current = messages;
-    // }, [messages]);
-
-    // Abort controller to cancel the current API call.
     const abortControllerRef = useRef<AbortController | null>(null);
 
     const extraMetadataRef = useRef<{
@@ -96,12 +80,7 @@ export function useChatCustom({
             abortControllerRef.current = abortController;
 
             try {
-                // Do an optimistic update to the chat state to show the updated messages
-                // immediately.
-                // const previousMessages = messagesRef.current;
                 const messagesSnapshot = messagesSnapshotArg || getConversation().conversation;
-                // eslint-disable-next-line no-debugger
-                // debugger;
 
                 const res = await fetch(api, {
                     method: "POST",
@@ -119,24 +98,15 @@ export function useChatCustom({
                     }),
                     headers: extraMetadataRef.current.headers || {},
                     signal: abortController.signal,
-                }).catch(err => {
-                    // Restore the previous messages if the request fails.
-                    // mutate(previousMessages, false);
+                }).catch((err) => {
                     throw err;
                 });
 
                 if (onResponse) {
-                    // eslint-disable-next-line no-useless-catch
-                    try {
-                        await onResponse(res);
-                    } catch (err) {
-                        throw err;
-                    }
+                    await onResponse(res);
                 }
 
                 if (!res.ok) {
-                    // Restore the previous messages if the request fails.
-                    // mutate(previousMessages, false);
                     throw new Error((await res.text()) || "Failed to fetch the chat response.");
                 }
 
@@ -164,42 +134,27 @@ export function useChatCustom({
                 // eslint-disable-next-line no-constant-condition
                 while (true) {
                     const { done, value } = await reader.read();
-                    // console.log(done, value);
                     if (done) {
-                        // console.log("done");
-                        // console.log(abortControllerRef.current);
                         break;
                     }
-                    // Update the chat state with the new message tokens.
                     let valueDecoded = decode(value);
                     if (valueDecoded.endsWith("<|im_not_finished|>")) {
                         valueDecoded = valueDecoded.replace("<|im_not_finished|>", "").trimEnd();
-                        // console.log("im_not_finished");
-                        // setIsUnfinished?.(true);
                         if (onIncomplete) {
                             onIncomplete();
                         }
-                        // break;
                         stop();
                     }
                     result += valueDecoded;
-                    // console.log(valueDecoded);
                     replaceLastMessage({
                         id: replyId,
                         createdAt,
                         content: result,
                         role: SourceTypes.BOT,
                     });
-                    // console.log(abortControllerRef.current);
-                    // debugger;
-                    // The request has been aborted, stop reading the stream.
                     if (abortControllerRef.current === null) {
-                        // console.log(abortControllerRef.current === null);
-                        // console.log("aborted");
                         reader.cancel();
-                        // break;
                     }
-                    // stop();
                 }
 
                 abortControllerRef.current = null;
@@ -207,7 +162,6 @@ export function useChatCustom({
             } catch (err: unknown) {
                 console.trace(err);
                 abortControllerRef.current = null;
-                // Ignore abort errors as they are expected.
                 if (err instanceof AbortSignal) {
                     return null;
                 }
@@ -219,12 +173,6 @@ export function useChatCustom({
                 throw err;
             } finally {
                 if (onFinish) {
-                    // onFinish({
-                    //     id: replyId,
-                    //     createdAt,
-                    //     content: result,
-                    //     role: SourceTypes.BOT,
-                    // });
                     onFinish();
                 }
             }
@@ -246,10 +194,7 @@ export function useChatCustom({
         if (currentConversation.length === 0) return null;
         const lastMessage = currentConversation[currentConversation.length - 1];
         if (lastMessage.role === SourceTypes.BOT) {
-            // const convo = currentConversation.slice(0, conversation.length - 1);
             removeLastMessage();
-            // streamResponse(convo);
-            // return;
         }
         streamResponse(getConversation().conversation);
     }, [getConversation, removeLastMessage, streamResponse]);
@@ -265,11 +210,9 @@ export function useChatCustom({
     }, [getConversation, streamResponse]);
 
     const stop = useCallback(() => {
-        // console.log("stopping");
         if (abortControllerRef.current) {
             abortControllerRef.current.abort();
             abortControllerRef.current = null;
-            // console.log("stopped");
         }
     }, []);
 
@@ -279,13 +222,6 @@ export function useChatCustom({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inProgress]);
-
-    // useEffect(() => {
-    //     if (conversation.length > 0 && conversation[conversation.length - 1].role === SourceTypes.USER) {
-    //         streamResponse(conversation);
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [conversation.length]);
 
     return {
         append,

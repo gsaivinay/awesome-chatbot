@@ -1,0 +1,64 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.6.3/schema.json",
+    "organizeImports": {
+        "enabled": true
+    },
+
+    "linter": {
+        "enabled": true,
+        "ignore": ["node_modules", "docs", "dist", "public", "**/node_modules/**", "bin"],
+        "rules": {
+            "recommended": true,
+            "a11y": {
+                "useKeyWithClickEvents": "off",
+                "useButtonType": "off",
+                "noSvgWithoutTitle": "off"
+            },
+            "correctness": {
+                "useExhaustiveDependencies": "off",
+                "noEmptyPattern": "warn"
+            },
+            "style": {
+                "noParameterAssign": "warn"
+            },
+            "suspicious": {
+                "noArrayIndexKey": "warn",
+                "noExplicitAny": "off"
+            },
+            "complexity": {
+                "noBannedTypes": "warn"
+            },
+            "security": {
+                "noDangerouslySetInnerHtml": "warn",
+                "noDangerouslySetInnerHtmlWithChildren": "warn"
+            }
+        }
+    },
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 120,
+        "lineEnding": "lf",
+        "ignore": ["node_modules", "docs", "dist", "public", "**/node_modules/**", "bin"]
+    },
+    "files": {
+        "include": [
+            "src/**/*.ts",
+            "src/**/*.tsx",
+            "src/**/*.js",
+            "src/**/*.jsx",
+            "lib/**/*.ts",
+            "lib/**/*.tsx",
+            "lib/**/*.js",
+            "lib/**/*.jsx",
+            "./biome.json",
+            "./package.json",
+            "./tsconfig.json",
+            "./vite.config.ts"
+        ],
+        "ignore": ["node_modules", "**/node_modules/**", "dist", "bin"],
+        "ignoreUnknown": true
+    }
+}

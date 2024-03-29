@@ -52,7 +52,7 @@ pnpm build:analyze
 
 ## Techincal Details
 - Zustand for state management
-- Complete written in typescript
+- Completely written in typescript
 - Streaming API for text generation
 
 ---

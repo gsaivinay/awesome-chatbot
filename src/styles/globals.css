@@ -70,9 +70,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-
-    --header-height: 3.25rem;
-    --sidebar-width: 18rem;
 }
 
 ::-webkit-scrollbar {
@@ -101,4 +98,8 @@
 ::-webkit-scrollbar-thumb:hover {
     --tw-bg-opacity: 1;
     background-color: rgba(236, 236, 241, var(--tw-bg-opacity));
+}
+
+.scroll-bottom-button {
+    display: none;
 }

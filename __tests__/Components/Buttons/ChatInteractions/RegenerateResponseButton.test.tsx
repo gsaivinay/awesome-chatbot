@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { assert } from "console";
 
 import { RegenerateResponseButton } from "@/components/Buttons/ChatInteractions";
-import { useChatResponseStatus } from "@/store/ChatSettings";
+import { useChatResponseStatus } from "@/store/GlobalStore";
 
 describe("RegenerateResponseButton", () => {
     const initialStoreState = useChatResponseStatus.getState();

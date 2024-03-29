@@ -20,9 +20,8 @@ export async function fetcher<JSON = any>(input: RequestInfo, init?: RequestInit
             };
             error.status = res.status;
             throw error;
-        } else {
-            throw new Error("An unexpected error occurred");
         }
+        throw new Error("An unexpected error occurred");
     }
 
     return res.json();
@@ -48,9 +47,9 @@ export const runAsyncFnWithoutBlocking = (fn: (...args: any) => Promise<any>) =>
     fn();
 };
 
-export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const getStringFromBuffer = (buffer: ArrayBuffer) =>
     Array.from(new Uint8Array(buffer))
-        .map(b => b.toString(16).padStart(2, "0"))
+        .map((b) => b.toString(16).padStart(2, "0"))
         .join("");
