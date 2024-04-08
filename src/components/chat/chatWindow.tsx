@@ -17,10 +17,11 @@ export default function ChatWindow({ conversationId }: { conversationId: Key }) 
             state.conversationMap[conversationIdString]?.title || "",
         ],
     );
-    const [updateActiveConversation, getActiveConversationMessages] = useConversationStore(
-        (state: ActiveConversation) => [state.setActiveChat, state.getActiveMetadata],
-    );
-    const activeConversationMessages = getActiveConversationMessages();
+    const [updateActiveConversation, getActiveMetadata] = useConversationStore((state: ActiveConversation) => [
+        state.setActiveChat,
+        state.getActiveMetadata,
+    ]);
+    const activeConversationMessages = getActiveMetadata();
     const [localConversationMessages, setLocalConversationMessages] = useState<typeof activeConversationMessages>([]);
 
     useEffect(() => {
@@ -32,7 +33,7 @@ export default function ChatWindow({ conversationId }: { conversationId: Key }) 
             document.title = currentConversationTitle;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [conversationIdString, currentConversationTitle, getConversationById, router, updateActiveConversation]);
+    }, [conversationIdString]);
 
     useEffect(() => {
         setLocalConversationMessages(activeConversationMessages);
